@@ -6,6 +6,10 @@ All notable changes to `vanere/icalendar` are documented here. The format is bas
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-06-20
+
+Phase 3 — iTIP scheduling (RFC 5546).
+
 ### Added
 - iTIP scheduling (RFC 5546): a `Method` enum, `ITip` message builders
   (`publish()`, `request()`, `reply()`, `cancel()`), an `ITipValidator` enforcing per-method
@@ -68,6 +72,7 @@ Initial release — Phase 1 core (RFC 5545 + RFC 7986).
 - No DST-aware time-zone arithmetic yet (phase 2).
 - Round-trip is Level-1 (no data loss), not byte-identical.
 
-[Unreleased]: https://github.com/vanere/icalendar/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/vanere/icalendar/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/vanere/icalendar/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/vanere/icalendar/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/vanere/icalendar/releases/tag/0.1.0
