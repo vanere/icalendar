@@ -8,8 +8,10 @@ use DateTimeInterface;
 use Vanere\ICalendar\Builder\CalendarBuilder;
 use Vanere\ICalendar\Recurrence\Occurrence;
 use Vanere\ICalendar\Recurrence\OccurrenceExpander;
+use Vanere\ICalendar\Scheduling\Method;
 use Vanere\ICalendar\TimeZone\TimeZoneGenerator;
 use Vanere\ICalendar\ValueType\DateTimeValue;
+use Vanere\ICalendar\ValueType\TextValue;
 
 /**
  * A VCALENDAR — the top of the tree. Holds calendar-level properties (PRODID,
@@ -53,6 +55,18 @@ final readonly class Calendar extends Component
     public function method(): ?string
     {
         return $this->stringOf('METHOD');
+    }
+
+    /** The METHOD as a typed iTIP {@see Method}, when recognised. */
+    public function schedulingMethod(): ?Method
+    {
+        $value = $this->valueOf('METHOD');
+
+        return match (true) {
+            $value instanceof Method => $value,
+            $value instanceof TextValue => Method::tryFrom($value->text),
+            default => null,
+        };
     }
 
     /** @return list<Event> */

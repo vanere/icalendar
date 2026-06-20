@@ -6,6 +6,7 @@ namespace Vanere\ICalendar\Builder;
 
 use Vanere\ICalendar\Component\Calendar;
 use Vanere\ICalendar\Component\Component;
+use Vanere\ICalendar\Scheduling\Method;
 use Vanere\ICalendar\ValueType\TextValue;
 
 /**
@@ -48,9 +49,9 @@ final class CalendarBuilder extends Builder
         return $this;
     }
 
-    public function method(string $method): static
+    public function method(Method|string $method): static
     {
-        $this->set('METHOD', new TextValue($method));
+        $this->set('METHOD', $method instanceof Method ? $method : new TextValue($method));
 
         return $this;
     }

@@ -55,6 +55,7 @@ echo (new IcsSerializer)->serialize($calendar);
 - [Alarms](#alarms)
 - [Recurring events](#recurring-events)
 - [Time zones](#time-zones)
+- [Scheduling (iTIP)](#scheduling-itip)
 - [Custom & unknown properties](#custom--unknown-properties)
 - [Strict vs lenient](#strict-vs-lenient)
 - [Error handling](#error-handling)
@@ -441,6 +442,37 @@ foreach ($tz->observances() as $observance) {
 
 You can also generate one directly: `(new TimeZoneGenerator())->forIana('Europe/Paris')`.
 
+## Scheduling (iTIP)
+
+Build [RFC 5546](https://www.rfc-editor.org/rfc/rfc5546) scheduling messages — invitations,
+replies, cancellations — each with the correct `METHOD` and required properties, via `ITip`:
+
+```php
+use Vanere\ICalendar\Scheduling\{ITip, ITipValidator};
+use Vanere\ICalendar\Parameter\PartStat;
+
+$request = ITip::request($event);                                      // organizer invites attendees
+$reply   = ITip::reply($event, 'alice@acme.test', PartStat::Accepted); // attendee responds
+$cancel  = ITip::cancel($event);                                       // + STATUS:CANCELLED, SEQUENCE++
+$publish = ITip::publish([$eventA, $eventB]);                          // a non-interactive feed
+
+$request->schedulingMethod(); // Method::Request   (typed METHOD getter)
+```
+
+Validate a message against its method's constraints:
+
+```php
+$validator = new ITipValidator();
+
+$validator->isValid($request);     // bool
+$validator->validate($request);    // list<string> of problems (empty = valid)
+$validator->assertValid($request); // throws SchedulingException if invalid
+```
+
+In the [Laravel package](https://github.com/vanere/laravel-icalendar), attaching an iTIP
+calendar advertises the method in the MIME type (`text/calendar; method=REQUEST`), so mail
+clients treat it as an invitation.
+
 ## Custom & unknown properties
 
 Add arbitrary properties with `->property()` (it appends, so it can repeat):
@@ -561,7 +593,7 @@ The suite is split into `tests/Unit` (per-class) and `tests/Integration`
 |---|---|---|
 | 1 | Core model, parse/serialize, Level-1 round-trip (RFC 5545 + 7986) | ✅ done |
 | 2 | Recurrence + time zones — `occurrencesBetween()`, `RECURRENCE-ID` overrides, `VTIMEZONE` generation/typed components | ✅ done |
-| 3 | RFC 7986 remainder + iTIP scheduling (RFC 5546) | planned |
+| 3 | iTIP scheduling (RFC 5546) — METHOD, message builders, validation | ✅ done |
 | 4 | [`vanere/laravel-icalendar`](https://github.com/vanere/laravel-icalendar) — service provider, facade, Eloquent mapping, feeds, Artisan, notifications | ✅ released separately |
 | 5 | jCal/xCal serializers, custom-`VTIMEZONE` offset resolution, byte-fidelity round-trip | someday |
 

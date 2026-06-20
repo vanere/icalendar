@@ -6,6 +6,13 @@ All notable changes to `vanere/icalendar` are documented here. The format is bas
 
 ## [Unreleased]
 
+### Added
+- iTIP scheduling (RFC 5546): a `Method` enum, `ITip` message builders
+  (`publish()`, `request()`, `reply()`, `cancel()`), an `ITipValidator` enforcing per-method
+  constraints, and `SchedulingException`.
+- Typed `Calendar::schedulingMethod()`; `CalendarBuilder::method()` now accepts a `Method`
+  (or a string).
+
 ## [0.2.0] - 2026-06-20
 
 Phase 2 — recurrence and IANA time-zone support.
