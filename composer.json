@@ -1,0 +1,31 @@
+{
+    "name": "vanere/icalendar",
+    "description": "A modern, strongly-typed, immutable iCalendar (RFC 5545 / 7986 / 5546) library for PHP.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["icalendar", "ical", "ics", "rfc5545", "rfc7986", "rfc5546", "calendar", "vevent"],
+    "require": {
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vanere\\ICalendar\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vanere\\ICalendar\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

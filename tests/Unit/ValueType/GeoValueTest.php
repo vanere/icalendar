@@ -1,0 +1,49 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Vanere\ICalendar\Tests\Unit\ValueType;
+
+use PHPUnit\Framework\TestCase;
+use Vanere\ICalendar\Exception\InvalidValueException;
+use Vanere\ICalendar\ValueType\GeoValue;
+
+final class GeoValueTest extends TestCase
+{
+    public function test_of_and_to_string(): void
+    {
+        $geo = GeoValue::of(37.386013, -122.082932);
+        $this->assertSame('37.386013;-122.082932', $geo->toString());
+    }
+
+    public function test_parse_round_trips(): void
+    {
+        $geo = GeoValue::parse('37.386013;-122.082932');
+        $this->assertSame(37.386013, $geo->latitude);
+        $this->assertSame(-122.082932, $geo->longitude);
+    }
+
+    public function test_parse_rejects_malformed(): void
+    {
+        $this->expectException(InvalidValueException::class);
+        GeoValue::parse('37.386013,-122.082932');
+    }
+
+    public function test_latitude_out_of_range_is_rejected(): void
+    {
+        $this->expectException(InvalidValueException::class);
+        GeoValue::of(91.0, 0.0);
+    }
+
+    public function test_longitude_out_of_range_is_rejected(): void
+    {
+        $this->expectException(InvalidValueException::class);
+        GeoValue::of(0.0, 181.0);
+    }
+
+    public function test_equality(): void
+    {
+        $this->assertTrue(GeoValue::of(1.5, 2.5)->equals(GeoValue::of(1.5, 2.5)));
+        $this->assertFalse(GeoValue::of(1.5, 2.5)->equals(GeoValue::of(1.5, 2.6)));
+    }
+}
