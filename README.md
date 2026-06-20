@@ -1,5 +1,11 @@
 # vanere/icalendar
 
+[![Latest Version](https://img.shields.io/packagist/v/vanere/icalendar.svg)](https://packagist.org/packages/vanere/icalendar)
+[![Tests](https://github.com/vanere/icalendar/actions/workflows/ci.yml/badge.svg)](https://github.com/vanere/icalendar/actions/workflows/ci.yml)
+[![PHP Version](https://img.shields.io/packagist/php-v/vanere/icalendar.svg)](https://packagist.org/packages/vanere/icalendar)
+[![Total Downloads](https://img.shields.io/packagist/dt/vanere/icalendar.svg)](https://packagist.org/packages/vanere/icalendar)
+[![License](https://img.shields.io/packagist/l/vanere/icalendar.svg)](LICENSE)
+
 A modern, strongly-typed, **immutable** iCalendar library for PHP 8.3+.
 
 Implements [RFC 5545](https://www.rfc-editor.org/rfc/rfc5545) (iCalendar) and
