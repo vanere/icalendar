@@ -4,8 +4,20 @@
     "type": "library",
     "license": "MIT",
     "keywords": ["icalendar", "ical", "ics", "rfc5545", "rfc7986", "rfc5546", "calendar", "vevent"],
+    "homepage": "https://github.com/vanere/icalendar",
+    "support": {
+        "issues": "https://github.com/vanere/icalendar/issues",
+        "source": "https://github.com/vanere/icalendar"
+    },
+    "authors": [
+        {
+            "name": "vanere",
+            "homepage": "https://github.com/vanere"
+        }
+    ],
     "require": {
-        "php": ">=8.3"
+        "php": ">=8.3",
+        "rlanvin/php-rrule": "^2.6"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.0"

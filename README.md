@@ -47,6 +47,8 @@ echo (new IcsSerializer)->serialize($calendar);
 - [Durations](#durations)
 - [Attendees & organizer](#attendees--organizer)
 - [Alarms](#alarms)
+- [Recurring events](#recurring-events)
+- [Time zones](#time-zones)
 - [Custom & unknown properties](#custom--unknown-properties)
 - [Strict vs lenient](#strict-vs-lenient)
 - [Error handling](#error-handling)
@@ -78,26 +80,6 @@ it leans on stringly-typed array access and mutable objects. `vanere/icalendar` 
 - No runtime dependencies (the recurrence engine in phase 2 will add `rlanvin/php-rrule`)
 
 ## Installation
-
-> Not yet published to Packagist. Until then, add it as a path or VCS repository.
-
-```jsonc
-// composer.json
-{
-    "repositories": [
-        { "type": "path", "url": "../packages/icalendar" }
-    ],
-    "require": {
-        "vanere/icalendar": "@dev"
-    }
-}
-```
-
-```bash
-composer require vanere/icalendar:@dev
-```
-
-Once published:
 
 ```bash
 composer require vanere/icalendar
@@ -353,6 +335,106 @@ $event->alarms()[0]->action();   // AlarmAction::Display
 $event->alarms()[0]->trigger();  // Duration (or DateTimeValue)
 ```
 
+## Recurring events
+
+Recurrence rules are modelled by the immutable `Recurrence` value object and built
+fluently (each modifier returns a new instance):
+
+```php
+use Vanere\ICalendar\Recurrence\{Recurrence, Weekday, WeekdayRule};
+
+Recurrence::daily()->times(10);                          // FREQ=DAILY;COUNT=10
+Recurrence::weekly()->every(2)->on(Weekday::Monday, Weekday::Wednesday);
+Recurrence::monthly()->on(new WeekdayRule(Weekday::Friday, -1)); // last Friday of the month
+Recurrence::yearly()->until(new DateTimeImmutable('2030-01-01', new DateTimeZone('UTC')));
+Recurrence::parse('FREQ=WEEKLY;BYDAY=MO,WE');           // from an RRULE string
+```
+
+Attach one to an event, with optional exception (`EXDATE`) and extra (`RDATE`) dates:
+
+```php
+use Vanere\ICalendar\ValueType\DateTimeValue;
+
+$event = Event::build()
+    ->uid('standup@acme.test')
+    ->starts(DateTimeValue::zoned(new DateTimeImmutable('2026-07-01 09:30'), 'America/New_York'))
+    ->recurrence(Recurrence::weekly()->on(Weekday::Monday, Weekday::Wednesday))
+    ->addExceptionDate(new DateTimeImmutable('2026-12-25 09:30', new DateTimeZone('America/New_York')))
+    ->get();
+
+$event->isRecurring();     // true
+$event->recurrenceRule();  // ?Recurrence
+```
+
+Expand the concrete occurrences in a window (`RRULE` + `RDATE` − `EXDATE`, DST-aware for
+IANA zones — wall-clock time is preserved across transitions):
+
+```php
+$from = new DateTimeImmutable('2026-07-01');
+$to   = new DateTimeImmutable('2026-08-01');
+
+foreach ($event->occurrencesBetween($from, $to) as $occurrence) {
+    echo $occurrence->format('Y-m-d H:i'); // DateTimeImmutable
+}
+```
+
+Expansion wraps [`rlanvin/php-rrule`](https://github.com/rlanvin/php-rrule) behind a
+`RecurrenceExpander` interface — pass your own implementation to `occurrencesBetween()`
+to swap the engine.
+
+### Modified & cancelled instances (`RECURRENCE-ID`)
+
+A recurring series can have individual instances overridden by a second `VEVENT` with the
+same `UID` plus a `RECURRENCE-ID`. Expand at the **calendar** level to resolve those —
+`Calendar::occurrencesBetween()` returns rich `Occurrence` objects (the effective event
+per instance), applying modifications and dropping cancellations:
+
+```php
+foreach ($calendar->occurrencesBetween($from, $to) as $occurrence) {
+    $occurrence->start;        // DateTimeImmutable (may differ from the slot if moved)
+    $occurrence->recurrenceId; // the original slot in the series
+    $occurrence->event;        // the master, or the override VEVENT for this instance
+    $occurrence->isOverride;   // true if a RECURRENCE-ID override applied
+}
+```
+
+(`Event::occurrencesBetween()` expands a single event and returns bare instants;
+`Calendar::occurrencesBetween()` is the override-aware version across the whole calendar.)
+
+## Time zones
+
+Zoned date-times reference a `TZID`. For portability, a calendar can carry its own
+`VTIMEZONE` definitions so clients don't need to know the zone. `withTimeZones()` generates
+them automatically from PHP's tz database for every IANA zone your events use:
+
+```php
+$calendar = Calendar::build()
+    ->prodId('-//Acme//EN')
+    ->add(
+        Event::build()->uid('1@acme')
+            ->starts(DateTimeValue::zoned(new DateTimeImmutable('2026-07-01 09:30'), 'America/New_York')),
+    )
+    ->get()
+    ->withTimeZones(); // prepends a correct VTIMEZONE with STANDARD/DAYLIGHT + RRULEs
+
+$calendar->timeZones();          // list<TimeZone>
+$calendar->timeZones()[0]->tzid(); // "America/New_York"
+```
+
+Parsed `VTIMEZONE` blocks are first-class `TimeZone` components with typed `Observance`
+children:
+
+```php
+$tz = $calendar->timeZones()[0];
+foreach ($tz->observances() as $observance) {
+    $observance->isDaylight();        // bool
+    $observance->offsetTo();          // ?UtcOffset
+    $observance->recurrenceRule();    // ?Recurrence
+}
+```
+
+You can also generate one directly: `(new TimeZoneGenerator())->forIana('Europe/Paris')`.
+
 ## Custom & unknown properties
 
 Add arbitrary properties with `->property()` (it appends, so it can repeat):
@@ -412,12 +494,15 @@ try {
 
 - **You must set `UID` (and usually `DTSTAMP`) yourself.** They are not auto-generated.
   `$event->uid()` returns `null` if absent. Use strict serialization to catch this.
-- **Recurrence is preserved but not yet expanded.** In phase 1, `RRULE` round-trips
-  verbatim (`$event->property('RRULE')?->value()` is a `RawValue`). Expanding occurrences
-  — the `occurrencesBetween($from, $to)` method — arrives in **phase 2**.
-- **No time-zone math yet.** Zoned date-times round-trip correctly (the literal + `TZID`
-  are preserved), but DST-aware instant arithmetic and `VTIMEZONE` generation come with
-  recurrence in phase 2. Custom (non-IANA) `TZID`s are kept verbatim.
+- **Use the calendar-level expander for overrides.** `Event::occurrencesBetween()` expands
+  one event in isolation and ignores `RECURRENCE-ID` overrides. To honour modified/cancelled
+  instances, expand the whole calendar with `Calendar::occurrencesBetween()`. Note:
+  `RANGE=THISANDFUTURE` overrides are treated as single-instance for now.
+- **Custom (non-IANA) `VTIMEZONE` resolution.** Zoned date-times with standard IANA ids
+  (`America/New_York`) expand DST-correctly, and `withTimeZones()` generates portable
+  `VTIMEZONE` blocks for them. A `TZID` that exists *only* as a `VTIMEZONE` block in the
+  file (not a PHP zone) is preserved and readable as a typed `TimeZone`, but is still
+  treated as UTC for instant math — resolving offsets from custom definitions is deferred.
 - **"Level-1" round-trip ≠ byte-identical.** `serialize(parse($ics))` never loses data
   and preserves property order within a component, but it *canonicalizes* output (line
   folding position, parameter ordering, escaping). Byte-for-byte fidelity (Level-2) is a
@@ -469,10 +554,10 @@ The suite is split into `tests/Unit` (per-class) and `tests/Integration`
 | Phase | Scope | Status |
 |---|---|---|
 | 1 | Core model, parse/serialize, Level-1 round-trip (RFC 5545 + 7986) | ✅ done |
-| 2 | Recurrence (`occurrencesBetween()`) + time zones | planned |
+| 2 | Recurrence + time zones — `occurrencesBetween()`, `RECURRENCE-ID` overrides, `VTIMEZONE` generation/typed components | ✅ done |
 | 3 | RFC 7986 remainder + iTIP scheduling (RFC 5546) | planned |
 | 4 | `vanere/laravel-icalendar` — service provider, facade, Eloquent mapping, Artisan, notifications | planned |
-| 5 | jCal/xCal serializers, byte-fidelity round-trip | someday |
+| 5 | jCal/xCal serializers, custom-`VTIMEZONE` offset resolution, byte-fidelity round-trip | someday |
 
 ## License
 

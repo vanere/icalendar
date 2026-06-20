@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Vanere\ICalendar\Component;
 
+use DateTimeInterface;
 use Vanere\ICalendar\Builder\CalendarBuilder;
+use Vanere\ICalendar\Recurrence\Occurrence;
+use Vanere\ICalendar\Recurrence\OccurrenceExpander;
+use Vanere\ICalendar\TimeZone\TimeZoneGenerator;
+use Vanere\ICalendar\ValueType\DateTimeValue;
 
 /**
  * A VCALENDAR — the top of the tree. Holds calendar-level properties (PRODID,
@@ -60,5 +65,81 @@ final readonly class Calendar extends Component
     public function components(): array
     {
         return $this->children->all();
+    }
+
+    /** @return list<TimeZone> */
+    public function timeZones(): array
+    {
+        return $this->children->ofType(TimeZone::class);
+    }
+
+    /**
+     * Return a copy with a generated VTIMEZONE prepended for each IANA time zone
+     * referenced by an event but not already defined, making the calendar
+     * self-contained. Non-IANA (custom) zone ids are skipped — bring your own
+     * VTIMEZONE for those.
+     */
+    public function withTimeZones(?TimeZoneGenerator $generator = null): self
+    {
+        $generator ??= new TimeZoneGenerator();
+
+        $existing = [];
+        foreach ($this->timeZones() as $timeZone) {
+            if ($timeZone->tzid() !== null) {
+                $existing[$timeZone->tzid()] = true;
+            }
+        }
+
+        $usedTzids = [];
+        foreach ($this->children as $child) {
+            $this->collectTzids($child, $usedTzids);
+        }
+
+        $generated = [];
+        foreach (array_keys($usedTzids) as $tzid) {
+            if (isset($existing[$tzid])) {
+                continue;
+            }
+            $timeZone = $generator->tryForIana($tzid);
+            if ($timeZone !== null) {
+                $generated[] = $timeZone;
+            }
+        }
+
+        if ($generated === []) {
+            return $this;
+        }
+
+        return new self($this->properties, new ComponentList(...$generated, ...$this->children->all()));
+    }
+
+    /** @param array<string, true> $tzids */
+    private function collectTzids(Component $component, array &$tzids): void
+    {
+        foreach ($component->properties as $property) {
+            foreach ($property->values as $value) {
+                if ($value instanceof DateTimeValue && $value->tzid !== null) {
+                    $tzids[$value->tzid] = true;
+                }
+            }
+        }
+        foreach ($component->children as $child) {
+            $this->collectTzids($child, $tzids);
+        }
+    }
+
+    /**
+     * Resolved occurrences across the whole calendar within [$from, $to], with
+     * RECURRENCE-ID overrides and cancellations applied, ordered by start. Each
+     * {@see Occurrence} carries the effective event for that instance.
+     *
+     * @return list<Occurrence>
+     */
+    public function occurrencesBetween(
+        DateTimeInterface $from,
+        DateTimeInterface $to,
+        ?OccurrenceExpander $expander = null,
+    ): array {
+        return ($expander ?? new OccurrenceExpander())->between($this, $from, $to);
     }
 }

@@ -16,6 +16,7 @@ use Vanere\ICalendar\Parameter\Role;
 use Vanere\ICalendar\Property\Classification;
 use Vanere\ICalendar\Property\EventStatus;
 use Vanere\ICalendar\Property\Transparency;
+use Vanere\ICalendar\Recurrence\Recurrence;
 use Vanere\ICalendar\ValueType\DateTimeValue;
 use Vanere\ICalendar\ValueType\Duration;
 use Vanere\ICalendar\ValueType\GeoValue;
@@ -223,6 +224,43 @@ final class EventBuilder extends Builder
         }
 
         $this->append('ATTENDEE', $this->toCalAddress($address), $parameters);
+
+        return $this;
+    }
+
+    public function recurrence(Recurrence $recurrence): static
+    {
+        $this->set('RRULE', $recurrence);
+
+        return $this;
+    }
+
+    /** Mark this event as an override of one instance of a recurring series. */
+    public function recurrenceId(DateTimeInterface|DateTimeValue $recurrenceId): static
+    {
+        $this->set('RECURRENCE-ID', $this->toDateTimeValue($recurrenceId));
+
+        return $this;
+    }
+
+    public function addExceptionDate(DateTimeInterface|DateTimeValue ...$dates): static
+    {
+        if ($dates === []) {
+            return $this;
+        }
+
+        $this->append('EXDATE', array_map(fn ($d): DateTimeValue => $this->toDateTimeValue($d), $dates));
+
+        return $this;
+    }
+
+    public function addRecurrenceDate(DateTimeInterface|DateTimeValue ...$dates): static
+    {
+        if ($dates === []) {
+            return $this;
+        }
+
+        $this->append('RDATE', array_map(fn ($d): DateTimeValue => $this->toDateTimeValue($d), $dates));
 
         return $this;
     }

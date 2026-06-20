@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Vanere\ICalendar\Component;
 
+use DateTimeInterface;
 use Vanere\ICalendar\Builder\EventBuilder;
 use Vanere\ICalendar\Property\Classification;
 use Vanere\ICalendar\Property\EventStatus;
 use Vanere\ICalendar\Property\Property;
 use Vanere\ICalendar\Property\Transparency;
+use Vanere\ICalendar\Recurrence\Recurrence;
+use Vanere\ICalendar\Recurrence\RecurrenceExpander;
+use Vanere\ICalendar\Recurrence\RlanvinRecurrenceExpander;
 use Vanere\ICalendar\ValueType\DateTimeValue;
 use Vanere\ICalendar\ValueType\Duration;
 use Vanere\ICalendar\ValueType\GeoValue;
@@ -129,6 +133,17 @@ final readonly class Event extends Component
         };
     }
 
+    public function isCancelled(): bool
+    {
+        return $this->status() === EventStatus::Cancelled;
+    }
+
+    /** The RECURRENCE-ID — present only on an override that modifies one instance of a series. */
+    public function recurrenceId(): ?DateTimeValue
+    {
+        return $this->dateTimeOf('RECURRENCE-ID');
+    }
+
     public function transparency(): ?Transparency
     {
         $value = $this->valueOf('TRANSP');
@@ -196,5 +211,59 @@ final readonly class Event extends Component
     public function alarms(): array
     {
         return $this->children->ofType(Alarm::class);
+    }
+
+    public function recurrenceRule(): ?Recurrence
+    {
+        $value = $this->valueOf('RRULE');
+
+        return $value instanceof Recurrence ? $value : null;
+    }
+
+    /** @return list<DateTimeValue> */
+    public function exceptionDates(): array
+    {
+        return $this->collectDateTimes('EXDATE');
+    }
+
+    /** @return list<DateTimeValue> */
+    public function recurrenceDates(): array
+    {
+        return $this->collectDateTimes('RDATE');
+    }
+
+    public function isRecurring(): bool
+    {
+        return $this->recurrenceRule() !== null || $this->recurrenceDates() !== [];
+    }
+
+    /**
+     * Expand this event's occurrences that start within [$from, $to] (inclusive).
+     * Honours RRULE, RDATE and EXDATE; a non-recurring event yields its single
+     * start if it falls in range. Pass a custom expander to override the engine.
+     *
+     * @return list<\DateTimeImmutable>
+     */
+    public function occurrencesBetween(
+        DateTimeInterface $from,
+        DateTimeInterface $to,
+        ?RecurrenceExpander $expander = null,
+    ): array {
+        return ($expander ?? new RlanvinRecurrenceExpander())->between($this, $from, $to);
+    }
+
+    /** @return list<DateTimeValue> */
+    private function collectDateTimes(string $name): array
+    {
+        $dates = [];
+        foreach ($this->properties->all($name) as $property) {
+            foreach ($property->values as $value) {
+                if ($value instanceof DateTimeValue) {
+                    $dates[] = $value;
+                }
+            }
+        }
+
+        return $dates;
     }
 }

@@ -102,13 +102,14 @@ final class ParserTest extends TestCase
         $this->assertSame('1', $property->parameter('X-PARAM')?->value());
     }
 
-    public function test_rrule_is_preserved_verbatim(): void
+    public function test_rrule_is_parsed_into_a_typed_recurrence(): void
     {
         $event = $this->firstEvent('RRULE:FREQ=WEEKLY;BYDAY=MO,WE');
 
         $value = $event->property('RRULE')?->value();
-        $this->assertInstanceOf(RawValue::class, $value);
+        $this->assertInstanceOf(\Vanere\ICalendar\Recurrence\Recurrence::class, $value);
         $this->assertSame('FREQ=WEEKLY;BYDAY=MO,WE', $value->toString());
+        $this->assertSame('FREQ=WEEKLY;BYDAY=MO,WE', $event->recurrenceRule()?->toString());
     }
 
     public function test_unknown_components_become_generic(): void

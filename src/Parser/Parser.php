@@ -13,6 +13,8 @@ use Vanere\ICalendar\Component\Component;
 use Vanere\ICalendar\Component\ComponentList;
 use Vanere\ICalendar\Component\Event;
 use Vanere\ICalendar\Component\GenericComponent;
+use Vanere\ICalendar\Component\Observance;
+use Vanere\ICalendar\Component\TimeZone;
 use Vanere\ICalendar\Exception\ParseException;
 use Vanere\ICalendar\Parameter\CuType;
 use Vanere\ICalendar\Parameter\FreeBusyType;
@@ -26,6 +28,7 @@ use Vanere\ICalendar\Parameter\RelationType;
 use Vanere\ICalendar\Parameter\Role;
 use Vanere\ICalendar\Property\Property;
 use Vanere\ICalendar\Property\PropertyBag;
+use Vanere\ICalendar\Recurrence\Recurrence;
 use Vanere\ICalendar\ValueType\BinaryValue;
 use Vanere\ICalendar\ValueType\BooleanValue;
 use Vanere\ICalendar\ValueType\CalAddress;
@@ -68,6 +71,7 @@ final class Parser
         'TRANSP' => 'TEXT', 'CLASS' => 'TEXT', 'ACTION' => 'TEXT', 'UID' => 'TEXT', 'PRODID' => 'TEXT',
         'VERSION' => 'TEXT', 'CALSCALE' => 'TEXT', 'METHOD' => 'TEXT', 'NAME' => 'TEXT', 'COLOR' => 'TEXT',
         'TZID' => 'TEXT', 'TZNAME' => 'TEXT', 'RELATED-TO' => 'TEXT', 'REQUEST-STATUS' => 'TEXT',
+        'RRULE' => 'RECUR',
     ];
 
     private LineUnfolder $unfolder;
@@ -174,6 +178,9 @@ final class Parser
             'VCALENDAR' => new Calendar($properties, $children),
             'VEVENT' => new Event($properties, $children),
             'VALARM' => new Alarm($properties, $children),
+            'VTIMEZONE' => new TimeZone($properties, $children),
+            'STANDARD' => new Observance(false, $properties, $children),
+            'DAYLIGHT' => new Observance(true, $properties, $children),
             default => new GenericComponent($frame['name'], $properties, $children),
         };
     }
@@ -317,6 +324,7 @@ final class Parser
                 'BOOLEAN' => 'BOOLEAN',
                 'CAL-ADDRESS' => 'CAL-ADDRESS',
                 'UTC-OFFSET' => 'UTC-OFFSET',
+                'RECUR' => 'RECUR',
                 default => 'RAW',
             };
         }
@@ -335,6 +343,11 @@ final class Parser
     {
         if ($type === 'RAW') {
             return [new RawValue($rawValue)];
+        }
+
+        // RECUR values contain semicolons and commas internally — never split them.
+        if ($type === 'RECUR') {
+            return [Recurrence::parse($rawValue)];
         }
 
         return array_map(
