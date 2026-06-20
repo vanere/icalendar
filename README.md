@@ -556,7 +556,7 @@ The suite is split into `tests/Unit` (per-class) and `tests/Integration`
 | 1 | Core model, parse/serialize, Level-1 round-trip (RFC 5545 + 7986) | ✅ done |
 | 2 | Recurrence + time zones — `occurrencesBetween()`, `RECURRENCE-ID` overrides, `VTIMEZONE` generation/typed components | ✅ done |
 | 3 | RFC 7986 remainder + iTIP scheduling (RFC 5546) | planned |
-| 4 | `vanere/laravel-icalendar` — service provider, facade, Eloquent mapping, Artisan, notifications | planned |
+| 4 | [`vanere/laravel-icalendar`](https://github.com/vanere/laravel-icalendar) — service provider, facade, Eloquent mapping, feeds, Artisan, notifications | ✅ released separately |
 | 5 | jCal/xCal serializers, custom-`VTIMEZONE` offset resolution, byte-fidelity round-trip | someday |
 
 ## License

@@ -6,6 +6,10 @@ All notable changes to `vanere/icalendar` are documented here. The format is bas
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-20
+
+Phase 2 — recurrence and IANA time-zone support.
+
 ### Added
 - Typed `Recurrence` value object (RRULE) with fluent construction (`Recurrence::weekly()
   ->every(2)->on(Weekday::Monday)`), `parse()`, and serialization; `Frequency`/`Weekday`
@@ -57,5 +61,6 @@ Initial release — Phase 1 core (RFC 5545 + RFC 7986).
 - No DST-aware time-zone arithmetic yet (phase 2).
 - Round-trip is Level-1 (no data loss), not byte-identical.
 
-[Unreleased]: https://github.com/vanere/icalendar/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/vanere/icalendar/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/vanere/icalendar/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/vanere/icalendar/releases/tag/0.1.0
