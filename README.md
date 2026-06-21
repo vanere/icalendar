@@ -38,6 +38,9 @@ echo (new IcsSerializer)->serialize($calendar);
 
 ---
 
+> 📖 **New here?** The [Recipes](docs/RECIPES.md) page has short, copy-paste examples for
+> the most common tasks — start there.
+
 ## Table of contents
 
 - [Why this library](#why-this-library)
