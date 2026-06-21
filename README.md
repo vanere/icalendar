@@ -8,9 +8,9 @@
 
 A modern, strongly-typed, **immutable** iCalendar library for PHP 8.3+.
 
-Implements [RFC 5545](https://www.rfc-editor.org/rfc/rfc5545) (iCalendar) and
-[RFC 7986](https://www.rfc-editor.org/rfc/rfc7986) (new properties), with
-[RFC 5546](https://www.rfc-editor.org/rfc/rfc5546) (iTIP scheduling) on the roadmap.
+Implements [RFC 5545](https://www.rfc-editor.org/rfc/rfc5545) (iCalendar),
+[RFC 7986](https://www.rfc-editor.org/rfc/rfc7986) (new properties), and
+[RFC 5546](https://www.rfc-editor.org/rfc/rfc5546) (iTIP scheduling).
 
 No stringly-typed array access, no `$event['VEVENT']['SUMMARY']`. Fluent builders,
 immutable value objects, typed getters, and **lossless round-tripping** of anything
