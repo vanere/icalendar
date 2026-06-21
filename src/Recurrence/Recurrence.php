@@ -22,15 +22,15 @@ use Vanere\ICalendar\ValueType\Value;
 final readonly class Recurrence implements Value
 {
     /**
-     * @param list<WeekdayRule> $byDay
-     * @param list<int> $byMonthDay
-     * @param list<int> $byMonth
-     * @param list<int> $byYearDay
-     * @param list<int> $byWeekNo
-     * @param list<int> $byHour
-     * @param list<int> $byMinute
-     * @param list<int> $bySecond
-     * @param list<int> $bySetPosition
+     * @param  list<WeekdayRule>  $byDay
+     * @param  list<int>  $byMonthDay
+     * @param  list<int>  $byMonth
+     * @param  list<int>  $byYearDay
+     * @param  list<int>  $byWeekNo
+     * @param  list<int>  $byHour
+     * @param  list<int>  $byMinute
+     * @param  list<int>  $bySecond
+     * @param  list<int>  $bySetPosition
      */
     public function __construct(
         public Frequency $frequency,
@@ -213,46 +213,46 @@ final readonly class Recurrence implements Value
 
     public function toString(): string
     {
-        $segments = ['FREQ=' . $this->frequency->value];
+        $segments = ['FREQ='.$this->frequency->value];
 
         if ($this->count !== null) {
-            $segments[] = 'COUNT=' . $this->count;
+            $segments[] = 'COUNT='.$this->count;
         }
         if ($this->until !== null) {
-            $segments[] = 'UNTIL=' . $this->until->toString();
+            $segments[] = 'UNTIL='.$this->until->toString();
         }
         if ($this->interval !== 1) {
-            $segments[] = 'INTERVAL=' . $this->interval;
+            $segments[] = 'INTERVAL='.$this->interval;
         }
         if ($this->bySecond !== []) {
-            $segments[] = 'BYSECOND=' . implode(',', $this->bySecond);
+            $segments[] = 'BYSECOND='.implode(',', $this->bySecond);
         }
         if ($this->byMinute !== []) {
-            $segments[] = 'BYMINUTE=' . implode(',', $this->byMinute);
+            $segments[] = 'BYMINUTE='.implode(',', $this->byMinute);
         }
         if ($this->byHour !== []) {
-            $segments[] = 'BYHOUR=' . implode(',', $this->byHour);
+            $segments[] = 'BYHOUR='.implode(',', $this->byHour);
         }
         if ($this->byDay !== []) {
-            $segments[] = 'BYDAY=' . implode(',', array_map(static fn (WeekdayRule $r): string => $r->toString(), $this->byDay));
+            $segments[] = 'BYDAY='.implode(',', array_map(static fn (WeekdayRule $r): string => $r->toString(), $this->byDay));
         }
         if ($this->byMonthDay !== []) {
-            $segments[] = 'BYMONTHDAY=' . implode(',', $this->byMonthDay);
+            $segments[] = 'BYMONTHDAY='.implode(',', $this->byMonthDay);
         }
         if ($this->byYearDay !== []) {
-            $segments[] = 'BYYEARDAY=' . implode(',', $this->byYearDay);
+            $segments[] = 'BYYEARDAY='.implode(',', $this->byYearDay);
         }
         if ($this->byWeekNo !== []) {
-            $segments[] = 'BYWEEKNO=' . implode(',', $this->byWeekNo);
+            $segments[] = 'BYWEEKNO='.implode(',', $this->byWeekNo);
         }
         if ($this->byMonth !== []) {
-            $segments[] = 'BYMONTH=' . implode(',', $this->byMonth);
+            $segments[] = 'BYMONTH='.implode(',', $this->byMonth);
         }
         if ($this->bySetPosition !== []) {
-            $segments[] = 'BYSETPOS=' . implode(',', $this->bySetPosition);
+            $segments[] = 'BYSETPOS='.implode(',', $this->bySetPosition);
         }
         if ($this->weekStart !== null) {
-            $segments[] = 'WKST=' . $this->weekStart->value;
+            $segments[] = 'WKST='.$this->weekStart->value;
         }
 
         return implode(';', $segments);
@@ -264,7 +264,22 @@ final readonly class Recurrence implements Value
     }
 
     /**
-     * @param array<string, mixed> $changes
+     * @param array{
+     *     frequency?: Frequency,
+     *     interval?: int,
+     *     count?: int|null,
+     *     until?: DateTimeValue|null,
+     *     byDay?: list<WeekdayRule>,
+     *     byMonthDay?: list<int>,
+     *     byMonth?: list<int>,
+     *     byYearDay?: list<int>,
+     *     byWeekNo?: list<int>,
+     *     byHour?: list<int>,
+     *     byMinute?: list<int>,
+     *     bySecond?: list<int>,
+     *     bySetPosition?: list<int>,
+     *     weekStart?: Weekday|null
+     * } $changes
      */
     private function copy(array $changes): self
     {

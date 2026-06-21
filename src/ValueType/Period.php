@@ -47,9 +47,15 @@ final readonly class Period implements Value
 
     public function toString(): string
     {
-        $tail = $this->end !== null ? $this->end->toString() : $this->duration->toString();
+        if ($this->end !== null) {
+            return $this->start->toString().'/'.$this->end->toString();
+        }
+        if ($this->duration !== null) {
+            return $this->start->toString().'/'.$this->duration->toString();
+        }
 
-        return $this->start->toString() . '/' . $tail;
+        // Unreachable: the constructor guarantees exactly one of end/duration.
+        throw new InvalidValueException('A PERIOD must have an end or a duration.');
     }
 
     public function __toString(): string

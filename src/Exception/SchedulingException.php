@@ -11,6 +11,4 @@ use RuntimeException;
  * validation — e.g. a REPLY for an event without a UID, or a REQUEST missing an
  * ORGANIZER.
  */
-final class SchedulingException extends RuntimeException implements ICalendarException
-{
-}
+final class SchedulingException extends RuntimeException implements ICalendarException {}

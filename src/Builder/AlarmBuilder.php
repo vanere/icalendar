@@ -21,7 +21,7 @@ final class AlarmBuilder extends Builder
 {
     public static function fromAlarm(Alarm $alarm): self
     {
-        $builder = new self();
+        $builder = new self;
         $builder->loadFrom($alarm);
 
         return $builder;

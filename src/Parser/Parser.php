@@ -74,12 +74,19 @@ final class Parser
         'RRULE' => 'RECUR',
     ];
 
+    /**
+     * Properties whose value is a comma-separated list. Every other property is
+     * single-valued, so its value is never split on commas (which keeps commas
+     * inside URIs, or unescaped commas from sloppy producers, intact).
+     */
+    private const MULTI_VALUE = ['CATEGORIES', 'RESOURCES', 'EXDATE', 'RDATE', 'FREEBUSY'];
+
     private LineUnfolder $unfolder;
 
     public function __construct(
         private readonly bool $strict = false,
     ) {
-        $this->unfolder = new LineUnfolder();
+        $this->unfolder = new LineUnfolder;
     }
 
     public static function lenient(): self
@@ -95,7 +102,7 @@ final class Parser
     /** Parse text into its root component (typically a {@see Calendar}). */
     public function parse(string $text): Component
     {
-        /** @var list<array{name: string, props: list<Property>, children: list<Component>}> $stack */
+        /** @var list<ComponentFrame> $stack */
         $stack = [];
         $root = null;
 
@@ -108,7 +115,7 @@ final class Parser
             $upper = strtoupper($name);
 
             if ($upper === 'BEGIN') {
-                $stack[] = ['name' => strtoupper(trim($rawValue)), 'props' => [], 'children' => []];
+                $stack[] = new ComponentFrame(strtoupper(trim($rawValue)));
 
                 continue;
             }
@@ -126,7 +133,7 @@ final class Parser
                 if ($stack === []) {
                     $root = $component;
                 } else {
-                    $stack[array_key_last($stack)]['children'][] = $component;
+                    $stack[array_key_last($stack)]->children[] = $component;
                 }
 
                 continue;
@@ -140,7 +147,7 @@ final class Parser
                 continue;
             }
 
-            $stack[array_key_last($stack)]['props'][] = $this->hydrateProperty($name, $parameters, $rawValue);
+            $stack[array_key_last($stack)]->properties[] = $this->hydrateProperty($name, $parameters, $rawValue);
         }
 
         if ($root === null) {
@@ -166,22 +173,19 @@ final class Parser
         return $root;
     }
 
-    /**
-     * @param array{name: string, props: list<Property>, children: list<Component>} $frame
-     */
-    private function buildComponent(array $frame): Component
+    private function buildComponent(ComponentFrame $frame): Component
     {
-        $properties = new PropertyBag(...$frame['props']);
-        $children = new ComponentList(...$frame['children']);
+        $properties = new PropertyBag(...$frame->properties);
+        $children = new ComponentList(...$frame->children);
 
-        return match ($frame['name']) {
+        return match ($frame->name) {
             'VCALENDAR' => new Calendar($properties, $children),
             'VEVENT' => new Event($properties, $children),
             'VALARM' => new Alarm($properties, $children),
             'VTIMEZONE' => new TimeZone($properties, $children),
             'STANDARD' => new Observance(false, $properties, $children),
             'DAYLIGHT' => new Observance(true, $properties, $children),
-            default => new GenericComponent($frame['name'], $properties, $children),
+            default => new GenericComponent($frame->name, $properties, $children),
         };
     }
 
@@ -249,7 +253,7 @@ final class Parser
     }
 
     /**
-     * @param list<array{0: string, 1: list<string>}> $parameters
+     * @param  list<array{0: string, 1: list<string>}>  $parameters
      */
     private function hydrateProperty(string $name, array $parameters, string $rawValue): Property
     {
@@ -271,7 +275,7 @@ final class Parser
         $type = $this->effectiveType(strtoupper($name), $valueType, $encoding);
 
         try {
-            $values = $this->hydrateValues($type, $rawValue, $tzid);
+            $values = $this->hydrateValues($type, strtoupper($name), $rawValue, $tzid);
         } catch (Throwable $exception) {
             if ($this->strict) {
                 throw new ParseException(
@@ -286,7 +290,7 @@ final class Parser
     }
 
     /**
-     * @param list<string> $values
+     * @param  list<string>  $values
      */
     private function hydrateParameter(string $name, array $values): ParameterValue|RawParameter
     {
@@ -339,7 +343,7 @@ final class Parser
     /**
      * @return list<Value>
      */
-    private function hydrateValues(string $type, string $rawValue, ?string $tzid): array
+    private function hydrateValues(string $type, string $name, string $rawValue, ?string $tzid): array
     {
         if ($type === 'RAW') {
             return [new RawValue($rawValue)];
@@ -350,9 +354,13 @@ final class Parser
             return [Recurrence::parse($rawValue)];
         }
 
+        $parts = in_array($name, self::MULTI_VALUE, true)
+            ? $this->splitOnUnescapedCommas($rawValue)
+            : [$rawValue];
+
         return array_map(
             fn (string $part): Value => $this->hydrateScalar($type, $part, $tzid),
-            $this->splitOnUnescapedCommas($rawValue),
+            $parts,
         );
     }
 
@@ -442,7 +450,7 @@ final class Parser
         for ($i = 0; $i < $length; $i++) {
             $char = $value[$i];
             if ($char === '\\' && $i + 1 < $length) {
-                $current .= $char . $value[$i + 1];
+                $current .= $char.$value[$i + 1];
                 $i++;
 
                 continue;
@@ -498,7 +506,7 @@ final class Parser
                     'n' => "\n",
                     "'" => '"',
                     '^' => '^',
-                    default => '^' . $next,
+                    default => '^'.$next,
                 };
                 $i++;
 

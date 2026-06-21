@@ -15,8 +15,7 @@ final readonly class BinaryValue implements Value
 {
     public function __construct(
         public string $bytes,
-    ) {
-    }
+    ) {}
 
     public static function fromBase64(string $base64): self
     {

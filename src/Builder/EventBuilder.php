@@ -33,7 +33,7 @@ final class EventBuilder extends Builder
 {
     public static function fromEvent(Event $event): self
     {
-        $builder = new self();
+        $builder = new self;
         $builder->loadFrom($event);
 
         return $builder;
@@ -178,14 +178,14 @@ final class EventBuilder extends Builder
             return $this;
         }
 
-        $this->set('CATEGORIES', array_map(static fn (string $c): TextValue => new TextValue($c), $categories));
+        $this->set('CATEGORIES', array_values(array_map(static fn (string $c): TextValue => new TextValue($c), $categories)));
 
         return $this;
     }
 
     public function organizer(string $address, ?string $name = null, ?string $sentBy = null): static
     {
-        $parameters = new ParameterBag();
+        $parameters = new ParameterBag;
         if ($name !== null) {
             $parameters = $parameters->with(new RawParameter('CN', $name));
         }
@@ -206,7 +206,7 @@ final class EventBuilder extends Builder
         ?bool $rsvp = null,
         ?string $name = null,
     ): static {
-        $parameters = new ParameterBag();
+        $parameters = new ParameterBag;
         if ($name !== null) {
             $parameters = $parameters->with(new RawParameter('CN', $name));
         }
@@ -249,7 +249,7 @@ final class EventBuilder extends Builder
             return $this;
         }
 
-        $this->append('EXDATE', array_map(fn ($d): DateTimeValue => $this->toDateTimeValue($d), $dates));
+        $this->append('EXDATE', array_values(array_map(fn ($d): DateTimeValue => $this->toDateTimeValue($d), $dates)));
 
         return $this;
     }
@@ -260,7 +260,7 @@ final class EventBuilder extends Builder
             return $this;
         }
 
-        $this->append('RDATE', array_map(fn ($d): DateTimeValue => $this->toDateTimeValue($d), $dates));
+        $this->append('RDATE', array_values(array_map(fn ($d): DateTimeValue => $this->toDateTimeValue($d), $dates)));
 
         return $this;
     }

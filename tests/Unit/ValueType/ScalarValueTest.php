@@ -28,8 +28,8 @@ final class ScalarValueTest extends TestCase
 
     public function test_text_value_holds_logical_string(): void
     {
-        $text = new TextValue("a, b; c\\d");
-        $this->assertSame("a, b; c\\d", $text->toString());
+        $text = new TextValue('a, b; c\\d');
+        $this->assertSame('a, b; c\\d', $text->toString());
     }
 
     public function test_integer_parse_and_render(): void

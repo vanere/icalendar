@@ -17,8 +17,8 @@ final readonly class Observance extends Component
 {
     public function __construct(
         private bool $daylight,
-        PropertyBag $properties = new PropertyBag(),
-        ComponentList $children = new ComponentList(),
+        PropertyBag $properties = new PropertyBag,
+        ComponentList $children = new ComponentList,
     ) {
         parent::__construct($properties, $children);
     }

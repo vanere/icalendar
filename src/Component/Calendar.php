@@ -28,7 +28,7 @@ final readonly class Calendar extends Component
 
     public static function build(): CalendarBuilder
     {
-        return new CalendarBuilder();
+        return new CalendarBuilder;
     }
 
     /** A mutable builder pre-populated from this calendar, for immutable edits. */
@@ -95,7 +95,7 @@ final readonly class Calendar extends Component
      */
     public function withTimeZones(?TimeZoneGenerator $generator = null): self
     {
-        $generator ??= new TimeZoneGenerator();
+        $generator ??= new TimeZoneGenerator;
 
         $existing = [];
         foreach ($this->timeZones() as $timeZone) {
@@ -154,6 +154,6 @@ final readonly class Calendar extends Component
         DateTimeInterface $to,
         ?OccurrenceExpander $expander = null,
     ): array {
-        return ($expander ?? new OccurrenceExpander())->between($this, $from, $to);
+        return ($expander ?? new OccurrenceExpander)->between($this, $from, $to);
     }
 }

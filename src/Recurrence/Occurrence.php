@@ -25,6 +25,5 @@ final readonly class Occurrence
         public Event $event,
         /** True when a RECURRENCE-ID override applied to this instance. */
         public bool $isOverride,
-    ) {
-    }
+    ) {}
 }

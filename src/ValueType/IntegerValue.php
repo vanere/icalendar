@@ -14,8 +14,7 @@ final readonly class IntegerValue implements Value
 {
     public function __construct(
         public int $value,
-    ) {
-    }
+    ) {}
 
     public static function parse(string $value): self
     {

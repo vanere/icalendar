@@ -57,11 +57,11 @@ final class ITipTest extends TestCase
         $this->assertSame(Method::Reply, $calendar->schedulingMethod());
         $event = $calendar->events()[0];
         $this->assertSame('meeting@acme.test', $event->uid());
-        $this->assertSame('mailto:boss@acme.test', $event->organizer()?->value()->toString());
+        $this->assertSame('mailto:boss@acme.test', $event->organizer()?->address()->toString());
 
         $attendee = $event->attendees()[0];
-        $this->assertSame('mailto:alice@acme.test', $attendee->value()->toString());
-        $this->assertSame(PartStat::Accepted, $attendee->parameter('PARTSTAT'));
+        $this->assertSame('mailto:alice@acme.test', $attendee->address()->toString());
+        $this->assertSame(PartStat::Accepted, $attendee->participationStatus());
     }
 
     public function test_reply_without_uid_throws(): void
@@ -79,7 +79,7 @@ final class ITipTest extends TestCase
 
     public function test_itip_message_round_trips(): void
     {
-        $ics = (new IcsSerializer())->serialize(ITip::request($this->invitation()));
+        $ics = (new IcsSerializer)->serialize(ITip::request($this->invitation()));
 
         $this->assertStringContainsString('METHOD:REQUEST', $ics);
 

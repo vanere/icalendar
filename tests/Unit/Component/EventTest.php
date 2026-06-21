@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Vanere\ICalendar\Component\Alarm;
 use Vanere\ICalendar\Component\ComponentList;
 use Vanere\ICalendar\Component\Event;
+use Vanere\ICalendar\Property\Attendee;
 use Vanere\ICalendar\Property\EventStatus;
 use Vanere\ICalendar\Property\Property;
 use Vanere\ICalendar\Property\PropertyBag;
@@ -28,7 +29,7 @@ final class EventTest extends TestCase
 
     public function test_wire_name(): void
     {
-        $this->assertSame('VEVENT', (new Event())->wireName());
+        $this->assertSame('VEVENT', (new Event)->wireName());
     }
 
     public function test_scalar_getters(): void
@@ -108,7 +109,7 @@ final class EventTest extends TestCase
         $this->assertSame(['work', 'urgent', 'personal'], $event->categories());
     }
 
-    public function test_attendees_are_lossless_properties(): void
+    public function test_attendees_are_typed_and_lossless(): void
     {
         $event = new Event(new PropertyBag(
             new Property('ATTENDEE', new TextValue('mailto:a@test')),
@@ -116,14 +117,17 @@ final class EventTest extends TestCase
         ));
 
         $this->assertCount(2, $event->attendees());
-        $this->assertContainsOnlyInstancesOf(Property::class, $event->attendees());
+        $this->assertContainsOnlyInstancesOf(Attendee::class, $event->attendees());
+        $this->assertSame('mailto:a@test', $event->attendees()[0]->address()->toString());
+        // The underlying property stays reachable for anything not surfaced.
+        $this->assertSame($event->property('ATTENDEE'), $event->attendees()[0]->property);
     }
 
     public function test_alarms_are_read_from_children(): void
     {
         $event = new Event(
             new PropertyBag(new Property('UID', new TextValue('1'))),
-            new ComponentList(new Alarm()),
+            new ComponentList(new Alarm),
         );
 
         $this->assertCount(1, $event->alarms());

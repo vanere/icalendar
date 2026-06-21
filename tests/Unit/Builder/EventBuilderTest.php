@@ -11,7 +11,6 @@ use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use Vanere\ICalendar\Component\Event;
 use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Parameter\RawParameter;
 use Vanere\ICalendar\Parameter\Role;
 use Vanere\ICalendar\Property\EventStatus;
 use Vanere\ICalendar\ValueType\Duration;
@@ -84,14 +83,13 @@ final class EventBuilderTest extends TestCase
         $this->assertCount(2, $event->attendees());
 
         $alice = $event->attendees()[0];
-        $this->assertSame('mailto:alice@app.test', $alice->value()->toString());
-        $this->assertSame(Role::Chair, $alice->parameter('ROLE'));
-        $this->assertInstanceOf(RawParameter::class, $alice->parameter('RSVP'));
-        $this->assertSame('TRUE', $alice->parameter('RSVP')->value());
-        $this->assertSame('Alice', $alice->parameter('CN')?->value());
+        $this->assertSame('mailto:alice@app.test', $alice->address()->toString());
+        $this->assertSame(Role::Chair, $alice->role());
+        $this->assertTrue($alice->rsvp());
+        $this->assertSame('Alice', $alice->commonName());
 
         $bob = $event->attendees()[1];
-        $this->assertSame(PartStat::Accepted, $bob->parameter('PARTSTAT'));
+        $this->assertSame(PartStat::Accepted, $bob->participationStatus());
     }
 
     public function test_organizer_with_common_name(): void
@@ -99,14 +97,14 @@ final class EventBuilderTest extends TestCase
         $event = Event::build()->organizer('boss@app.test', name: 'The Boss')->get();
         $organizer = $event->organizer();
 
-        $this->assertSame('mailto:boss@app.test', $organizer?->value()->toString());
-        $this->assertSame('The Boss', $organizer?->parameter('CN')?->value());
+        $this->assertSame('mailto:boss@app.test', $organizer?->address()->toString());
+        $this->assertSame('The Boss', $organizer?->commonName());
     }
 
     public function test_organizer_accepts_explicit_uri(): void
     {
         $event = Event::build()->organizer('https://dir.test/u/1')->get();
-        $this->assertSame('https://dir.test/u/1', $event->organizer()?->value()->toString());
+        $this->assertSame('https://dir.test/u/1', $event->organizer()?->address()->toString());
     }
 
     public function test_categories_replace_and_clear(): void

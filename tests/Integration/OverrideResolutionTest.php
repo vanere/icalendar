@@ -58,7 +58,7 @@ final class OverrideResolutionTest extends TestCase
     private function summarise(array $occurrences): array
     {
         return array_map(
-            static fn (Occurrence $o): string => $o->start->format('Y-m-d H:i') . ' | ' . $o->event->summary() . ($o->isOverride ? ' *' : ''),
+            static fn (Occurrence $o): string => $o->start->format('Y-m-d H:i').' | '.$o->event->summary().($o->isOverride ? ' *' : ''),
             $occurrences,
         );
     }
@@ -104,7 +104,7 @@ final class OverrideResolutionTest extends TestCase
 
     public function test_overrides_survive_serialize_and_parse(): void
     {
-        $ics = (new IcsSerializer())->serialize($this->dailySeriesWithOverrides());
+        $ics = (new IcsSerializer)->serialize($this->dailySeriesWithOverrides());
         $this->assertStringContainsString('RECURRENCE-ID:20260703T100000Z', $ics);
 
         $calendar = Parser::lenient()->parseCalendar($ics);

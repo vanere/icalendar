@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Vanere\ICalendar\Tests\Integration;
 
 use DateTimeImmutable;
-use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use Vanere\ICalendar\Component\Calendar;
 use Vanere\ICalendar\Component\Event;
@@ -27,12 +26,12 @@ final class TimeZoneTest extends TestCase
             }
         }
 
-        $this->fail(($daylight ? 'DAYLIGHT' : 'STANDARD') . ' observance not found');
+        $this->fail(($daylight ? 'DAYLIGHT' : 'STANDARD').' observance not found');
     }
 
     public function test_generates_dst_zone_with_derived_rules(): void
     {
-        $tz = (new TimeZoneGenerator())->forIana('America/New_York');
+        $tz = (new TimeZoneGenerator)->forIana('America/New_York');
 
         $this->assertSame('America/New_York', $tz->tzid());
         $this->assertCount(2, $tz->observances());
@@ -49,7 +48,7 @@ final class TimeZoneTest extends TestCase
 
     public function test_generates_fixed_zone_without_dst(): void
     {
-        $tz = (new TimeZoneGenerator())->forIana('Asia/Kolkata');
+        $tz = (new TimeZoneGenerator)->forIana('Asia/Kolkata');
 
         $this->assertCount(1, $tz->observances());
         $standard = $tz->observances()[0];
@@ -60,16 +59,16 @@ final class TimeZoneTest extends TestCase
 
     public function test_non_iana_id_is_skipped_or_throws(): void
     {
-        $this->assertNull((new TimeZoneGenerator())->tryForIana('Custom/Made-Up'));
+        $this->assertNull((new TimeZoneGenerator)->tryForIana('Custom/Made-Up'));
 
         $this->expectException(InvalidValueException::class);
-        (new TimeZoneGenerator())->forIana('Custom/Made-Up');
+        (new TimeZoneGenerator)->forIana('Custom/Made-Up');
     }
 
     public function test_serializes_to_valid_vtimezone(): void
     {
-        $tz = (new TimeZoneGenerator())->forIana('America/New_York');
-        $ics = (new IcsSerializer())->serialize($tz);
+        $tz = (new TimeZoneGenerator)->forIana('America/New_York');
+        $ics = (new IcsSerializer)->serialize($tz);
 
         $this->assertStringContainsString('BEGIN:VTIMEZONE', $ics);
         $this->assertStringContainsString('TZID:America/New_York', $ics);
@@ -116,7 +115,7 @@ final class TimeZoneTest extends TestCase
 
     public function test_parsed_vtimezone_is_typed_and_round_trips(): void
     {
-        $ics = (new IcsSerializer())->serialize(
+        $ics = (new IcsSerializer)->serialize(
             Calendar::build()
                 ->prodId('-//Test//EN')
                 ->add(Event::build()->uid('1@test')->starts(DateTimeValue::zoned(new DateTimeImmutable('2026-07-01 09:30'), 'America/New_York')))
@@ -133,7 +132,7 @@ final class TimeZoneTest extends TestCase
         $this->assertSame('-0400', $this->observance($tz, true)->offsetTo()?->toString());
 
         // Stable fixed point through another round trip.
-        $second = (new IcsSerializer())->serialize(Parser::lenient()->parseCalendar($ics));
+        $second = (new IcsSerializer)->serialize(Parser::lenient()->parseCalendar($ics));
         $this->assertSame($ics, $second);
     }
 }

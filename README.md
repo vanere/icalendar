@@ -209,8 +209,8 @@ $event->duration();       // ?Duration
 $event->status();         // ?EventStatus
 $event->priority();       // ?int
 $event->categories();     // list<string>
-$event->organizer();      // ?Property
-$event->attendees();      // list<Property>
+$event->organizer();      // ?Organizer
+$event->attendees();      // list<Attendee>
 $event->alarms();         // list<Alarm>
 
 // Calendar level
@@ -314,11 +314,14 @@ $event = Event::build()
     ->addAttendee('room-a@acme.test', cuType: CuType::Room)
     ->get();
 
-$attendee = $event->attendees()[0];
-$attendee->value()->toString();        // "mailto:alice@acme.test"
-$attendee->value()->email();           // "alice@acme.test"
-$attendee->parameter('ROLE');          // Role::Chair  (typed enum)
-$attendee->parameter('CN')?->value();  // "Alice"      (RawParameter)
+$attendee = $event->attendees()[0];     // a typed Attendee
+$attendee->address()->toString();      // "mailto:alice@acme.test"
+$attendee->email();                    // "alice@acme.test"
+$attendee->role();                     // Role::Chair       (typed)
+$attendee->participationStatus();      // PartStat::Accepted
+$attendee->commonName();               // "Alice"
+$attendee->rsvp();                     // true
+$attendee->property;                   // the underlying Property (lossless escape hatch)
 ```
 
 ## Alarms
@@ -545,9 +548,6 @@ try {
   and preserves property order within a component, but it *canonicalizes* output (line
   folding position, parameter ordering, escaping). Byte-for-byte fidelity (Level-2) is a
   future option, not a current guarantee.
-- **`attendees()` / `organizer()` return `Property` objects,** not a typed `Attendee` VO
-  (kept lossless on purpose). Read the address via `->value()` and params via
-  `->parameter('ROLE')`.
 - **Immutability surprise:** builder methods that read like mutations (`addAttendee`)
   mutate the *builder*; the produced component is immutable. Edit an existing component
   via `->toBuilder()`.

@@ -18,7 +18,7 @@ use Traversable;
  *
  * @implements IteratorAggregate<int, ParameterValue|RawParameter>
  */
-final readonly class ParameterBag implements IteratorAggregate, Countable
+final readonly class ParameterBag implements Countable, IteratorAggregate
 {
     /** @var array<string, ParameterValue|RawParameter> */
     private array $items;

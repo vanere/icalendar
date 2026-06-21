@@ -22,7 +22,7 @@ final class CalendarBuilder extends Builder
 
     public static function fromCalendar(Calendar $calendar): self
     {
-        $builder = new self();
+        $builder = new self;
         $builder->loadFrom($calendar);
 
         return $builder;

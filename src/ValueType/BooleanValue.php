@@ -13,8 +13,7 @@ final readonly class BooleanValue implements Value
 {
     public function __construct(
         public bool $value,
-    ) {
-    }
+    ) {}
 
     public static function parse(string $value): self
     {

@@ -17,6 +17,7 @@ use Vanere\ICalendar\Serializer\IcsSerializer;
 use Vanere\ICalendar\ValueType\BinaryValue;
 use Vanere\ICalendar\ValueType\DateTimeValue;
 use Vanere\ICalendar\ValueType\RawValue;
+use Vanere\ICalendar\ValueType\TextValue;
 
 final class IcsSerializerTest extends TestCase
 {
@@ -108,18 +109,18 @@ final class IcsSerializerTest extends TestCase
     public function test_binary_value_parameters(): void
     {
         $event = new Event(new PropertyBag(
-            new Property('UID', new \Vanere\ICalendar\ValueType\TextValue('1')),
+            new Property('UID', new TextValue('1')),
             new Property('ATTACH', new BinaryValue('hello')),
         ));
 
         $output = $this->serialize($event);
-        $this->assertStringContainsString('ATTACH;ENCODING=BASE64;VALUE=BINARY:' . base64_encode('hello'), $output);
+        $this->assertStringContainsString('ATTACH;ENCODING=BASE64;VALUE=BINARY:'.base64_encode('hello'), $output);
     }
 
     public function test_raw_value_is_emitted_verbatim(): void
     {
         $event = new Event(new PropertyBag(
-            new Property('UID', new \Vanere\ICalendar\ValueType\TextValue('1')),
+            new Property('UID', new TextValue('1')),
             new Property('X-LEGACY', new RawValue('keep;these,chars\\as-is')),
         ));
 

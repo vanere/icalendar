@@ -14,8 +14,7 @@ final readonly class RawValue implements Value
 {
     public function __construct(
         public string $raw,
-    ) {
-    }
+    ) {}
 
     public function toString(): string
     {

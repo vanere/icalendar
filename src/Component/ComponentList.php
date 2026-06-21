@@ -14,7 +14,7 @@ use Traversable;
  *
  * @implements IteratorAggregate<int, Component>
  */
-final readonly class ComponentList implements IteratorAggregate, Countable
+final readonly class ComponentList implements Countable, IteratorAggregate
 {
     /** @var list<Component> */
     private array $components;
@@ -59,8 +59,7 @@ final readonly class ComponentList implements IteratorAggregate, Countable
      *
      * @template T of Component
      *
-     * @param class-string<T> $class
-     *
+     * @param  class-string<T>  $class
      * @return list<T>
      */
     public function ofType(string $class): array

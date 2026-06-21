@@ -6,8 +6,10 @@ namespace Vanere\ICalendar\Component;
 
 use DateTimeInterface;
 use Vanere\ICalendar\Builder\EventBuilder;
+use Vanere\ICalendar\Property\Attendee;
 use Vanere\ICalendar\Property\Classification;
 use Vanere\ICalendar\Property\EventStatus;
+use Vanere\ICalendar\Property\Organizer;
 use Vanere\ICalendar\Property\Property;
 use Vanere\ICalendar\Property\Transparency;
 use Vanere\ICalendar\Recurrence\Recurrence;
@@ -34,7 +36,7 @@ final readonly class Event extends Component
 
     public static function build(): EventBuilder
     {
-        return new EventBuilder();
+        return new EventBuilder;
     }
 
     /** A mutable builder pre-populated from this event, for immutable edits. */
@@ -196,15 +198,20 @@ final readonly class Event extends Component
         return $categories;
     }
 
-    public function organizer(): ?Property
+    public function organizer(): ?Organizer
     {
-        return $this->properties->first('ORGANIZER');
+        $property = $this->properties->first('ORGANIZER');
+
+        return $property !== null ? new Organizer($property) : null;
     }
 
-    /** @return list<Property> */
+    /** @return list<Attendee> */
     public function attendees(): array
     {
-        return $this->properties->all('ATTENDEE');
+        return array_map(
+            static fn (Property $property): Attendee => new Attendee($property),
+            $this->properties->all('ATTENDEE'),
+        );
     }
 
     /** @return list<Alarm> */
@@ -249,7 +256,7 @@ final readonly class Event extends Component
         DateTimeInterface $to,
         ?RecurrenceExpander $expander = null,
     ): array {
-        return ($expander ?? new RlanvinRecurrenceExpander())->between($this, $from, $to);
+        return ($expander ?? new RlanvinRecurrenceExpander)->between($this, $from, $to);
     }
 
     /** @return list<DateTimeValue> */

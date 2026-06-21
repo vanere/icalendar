@@ -11,9 +11,7 @@ use Vanere\ICalendar\Component\Calendar;
 use Vanere\ICalendar\Component\Event;
 use Vanere\ICalendar\Exception\SchedulingException;
 use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Parameter\RawParameter;
 use Vanere\ICalendar\Property\EventStatus;
-use Vanere\ICalendar\ValueType\CalAddress;
 
 /**
  * Builds iTIP (RFC 5546) scheduling messages — VCALENDARs with a METHOD and the
@@ -30,7 +28,7 @@ final class ITip
     /**
      * A non-interactive PUBLISH feed of one or more events.
      *
-     * @param Event|list<Event> $events
+     * @param  Event|list<Event>  $events
      */
     public static function publish(Event|array $events, ?string $prodId = null): Calendar
     {
@@ -87,7 +85,7 @@ final class ITip
     }
 
     /**
-     * @param list<Event> $events
+     * @param  list<Event>  $events
      */
     private static function message(Method $method, array $events, ?string $prodId): Calendar
     {
@@ -111,14 +109,7 @@ final class ITip
             return;
         }
 
-        $value = $organizer->value();
-        if (! $value instanceof CalAddress) {
-            return;
-        }
-
-        $cn = $organizer->parameter('CN');
-
-        $builder->organizer($value->toString(), name: $cn instanceof RawParameter ? $cn->value() : null);
+        $builder->organizer($organizer->address()->toString(), name: $organizer->commonName());
     }
 
     private static function now(): DateTimeImmutable

@@ -18,7 +18,7 @@ use Traversable;
  *
  * @implements IteratorAggregate<int, Property>
  */
-final readonly class PropertyBag implements IteratorAggregate, Countable
+final readonly class PropertyBag implements Countable, IteratorAggregate
 {
     /** @var list<Property> */
     private array $properties;

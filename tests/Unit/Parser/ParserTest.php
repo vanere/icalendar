@@ -10,13 +10,11 @@ use Vanere\ICalendar\Component\Event;
 use Vanere\ICalendar\Component\GenericComponent;
 use Vanere\ICalendar\Exception\ParseException;
 use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Parameter\RawParameter;
 use Vanere\ICalendar\Parameter\Role;
 use Vanere\ICalendar\Parser\Parser;
 use Vanere\ICalendar\Property\EventStatus;
-use Vanere\ICalendar\ValueType\DateTimeValue;
+use Vanere\ICalendar\Recurrence\Recurrence;
 use Vanere\ICalendar\ValueType\RawValue;
-use Vanere\ICalendar\ValueType\TextValue;
 
 final class ParserTest extends TestCase
 {
@@ -71,12 +69,11 @@ final class ParserTest extends TestCase
         );
 
         $attendee = $event->attendees()[0];
-        $this->assertSame('mailto:alice@test', $attendee->value()->toString());
-        $this->assertSame(Role::Chair, $attendee->parameter('ROLE'));
-        $this->assertSame(PartStat::Accepted, $attendee->parameter('PARTSTAT'));
-        $this->assertInstanceOf(RawParameter::class, $attendee->parameter('CN'));
-        $this->assertSame('Doe, Alice', $attendee->parameter('CN')->value());
-        $this->assertSame('TRUE', $attendee->parameter('RSVP')->value());
+        $this->assertSame('mailto:alice@test', $attendee->address()->toString());
+        $this->assertSame(Role::Chair, $attendee->role());
+        $this->assertSame(PartStat::Accepted, $attendee->participationStatus());
+        $this->assertSame('Doe, Alice', $attendee->commonName());
+        $this->assertTrue($attendee->rsvp());
     }
 
     public function test_unescapes_text_and_splits_categories(): void
@@ -107,7 +104,7 @@ final class ParserTest extends TestCase
         $event = $this->firstEvent('RRULE:FREQ=WEEKLY;BYDAY=MO,WE');
 
         $value = $event->property('RRULE')?->value();
-        $this->assertInstanceOf(\Vanere\ICalendar\Recurrence\Recurrence::class, $value);
+        $this->assertInstanceOf(Recurrence::class, $value);
         $this->assertSame('FREQ=WEEKLY;BYDAY=MO,WE', $value->toString());
         $this->assertSame('FREQ=WEEKLY;BYDAY=MO,WE', $event->recurrenceRule()?->toString());
     }

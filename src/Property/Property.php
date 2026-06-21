@@ -8,6 +8,7 @@ use Vanere\ICalendar\Exception\InvalidValueException;
 use Vanere\ICalendar\Parameter\ParameterBag;
 use Vanere\ICalendar\Parameter\ParameterValue;
 use Vanere\ICalendar\Parameter\RawParameter;
+use Vanere\ICalendar\ValueType\RawValue;
 use Vanere\ICalendar\ValueType\Value;
 
 /**
@@ -18,7 +19,7 @@ use Vanere\ICalendar\ValueType\Value;
  * This is the one generic property type — typed access is provided by the
  * component getters and builders, not by per-property subclasses. Unmodelled
  * properties are ordinary Property instances whose value is a
- * {@see \Vanere\ICalendar\ValueType\RawValue}.
+ * {@see RawValue}.
  */
 final readonly class Property
 {
@@ -30,7 +31,7 @@ final readonly class Property
     public ParameterBag $parameters;
 
     /**
-     * @param Value|list<Value> $value
+     * @param  Value|list<Value>  $value
      */
     public function __construct(string $name, Value|array $value, ?ParameterBag $parameters = null)
     {
@@ -39,19 +40,14 @@ final readonly class Property
             throw new InvalidValueException(sprintf('Invalid property name "%s".', $name));
         }
 
-        $values = is_array($value) ? array_values($value) : [$value];
+        $values = is_array($value) ? $value : [$value];
         if ($values === []) {
             throw new InvalidValueException(sprintf('Property "%s" must have at least one value.', $name));
-        }
-        foreach ($values as $candidate) {
-            if (! $candidate instanceof Value) {
-                throw new InvalidValueException(sprintf('Every value of property "%s" must implement Value.', $name));
-            }
         }
 
         $this->name = $name;
         $this->values = $values;
-        $this->parameters = $parameters ?? new ParameterBag();
+        $this->parameters = $parameters ?? new ParameterBag;
     }
 
     /** The first (often only) value. */

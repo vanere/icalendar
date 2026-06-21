@@ -16,8 +16,7 @@ final readonly class GeoValue implements Value
     private function __construct(
         public float $latitude,
         public float $longitude,
-    ) {
-    }
+    ) {}
 
     public static function of(float $latitude, float $longitude): self
     {

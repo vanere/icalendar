@@ -21,9 +21,8 @@ use Vanere\ICalendar\Component\Event;
 final class OccurrenceExpander
 {
     public function __construct(
-        private readonly RecurrenceExpander $expander = new RlanvinRecurrenceExpander(),
-    ) {
-    }
+        private readonly RecurrenceExpander $expander = new RlanvinRecurrenceExpander,
+    ) {}
 
     /**
      * All resolved occurrences across the calendar within [$from, $to], ordered by start.
@@ -70,8 +69,7 @@ final class OccurrenceExpander
     }
 
     /**
-     * @param list<Event> $events
-     *
+     * @param  list<Event>  $events
      * @return list<Occurrence>
      */
     private function expandGroup(array $events, DateTimeImmutable $from, DateTimeImmutable $to): array
@@ -119,7 +117,8 @@ final class OccurrenceExpander
                 continue; // this instance was cancelled
             }
 
-            $start = $override->start()?->dateTime ?? $baseStart;
+            $overrideStart = $override->start();
+            $start = $overrideStart !== null ? $overrideStart->dateTime : $baseStart;
             $occurrences[] = new Occurrence($start, $baseStart, $override, true);
         }
 

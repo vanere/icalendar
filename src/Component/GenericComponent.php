@@ -6,13 +6,14 @@ namespace Vanere\ICalendar\Component;
 
 use Vanere\ICalendar\Exception\InvalidValueException;
 use Vanere\ICalendar\Property\PropertyBag;
+use Vanere\ICalendar\ValueType\RawValue;
 
 /**
  * A component the library does not yet model with a dedicated type (VTODO,
  * VJOURNAL, VFREEBUSY, VTIMEZONE, or an experimental X-component). It preserves
  * its name, properties and children verbatim so the Level-1 round-trip stays
  * lossless — the component-level counterpart of
- * {@see \Vanere\ICalendar\ValueType\RawValue}.
+ * {@see RawValue}.
  */
 final readonly class GenericComponent extends Component
 {
@@ -20,8 +21,8 @@ final readonly class GenericComponent extends Component
 
     public function __construct(
         string $wireName,
-        PropertyBag $properties = new PropertyBag(),
-        ComponentList $children = new ComponentList(),
+        PropertyBag $properties = new PropertyBag,
+        ComponentList $children = new ComponentList,
     ) {
         $wireName = strtoupper(trim($wireName));
         if (preg_match('/^[A-Za-z0-9\-]+$/', $wireName) !== 1) {

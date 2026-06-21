@@ -15,6 +15,7 @@ use Vanere\ICalendar\Property\AlarmAction;
 use Vanere\ICalendar\Property\Property;
 use Vanere\ICalendar\Property\PropertyBag;
 use Vanere\ICalendar\ValueType\Duration;
+use Vanere\ICalendar\ValueType\IntegerValue;
 use Vanere\ICalendar\ValueType\TextValue;
 
 final class CalendarAndAlarmTest extends TestCase
@@ -27,7 +28,7 @@ final class CalendarAndAlarmTest extends TestCase
                 new Property('PRODID', new TextValue('-//Vanere//EN')),
                 new Property('CALSCALE', new TextValue('GREGORIAN')),
             ),
-            new ComponentList(new Event(), new GenericComponent('VTIMEZONE')),
+            new ComponentList(new Event, new GenericComponent('VTIMEZONE')),
         );
 
         $this->assertSame('VCALENDAR', $calendar->wireName());
@@ -44,7 +45,7 @@ final class CalendarAndAlarmTest extends TestCase
             new Property('ACTION', AlarmAction::Display),
             new Property('DESCRIPTION', new TextValue('Reminder')),
             new Property('TRIGGER', Duration::minutes(-15)),
-            new Property('REPEAT', new \Vanere\ICalendar\ValueType\IntegerValue(2)),
+            new Property('REPEAT', new IntegerValue(2)),
         ));
 
         $this->assertSame('VALARM', $alarm->wireName());

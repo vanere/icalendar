@@ -26,7 +26,7 @@ final readonly class Alarm extends Component
 
     public static function build(): AlarmBuilder
     {
-        return new AlarmBuilder();
+        return new AlarmBuilder;
     }
 
     /** A mutable builder pre-populated from this alarm, for immutable edits. */

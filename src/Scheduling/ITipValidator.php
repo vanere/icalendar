@@ -46,7 +46,7 @@ final class ITipValidator
     {
         $errors = $this->validate($calendar);
         if ($errors !== []) {
-            throw new SchedulingException('Invalid iTIP message: ' . implode(' ', $errors));
+            throw new SchedulingException('Invalid iTIP message: '.implode(' ', $errors));
         }
     }
 
@@ -91,7 +91,7 @@ final class ITipValidator
                 $require('ORGANIZER');
                 $hasPartStat = false;
                 foreach ($event->attendees() as $attendee) {
-                    if ($attendee->parameter('PARTSTAT') !== null) {
+                    if ($attendee->participationStatus() !== null) {
                         $hasPartStat = true;
                     }
                 }

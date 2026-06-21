@@ -12,6 +12,4 @@ use InvalidArgumentException;
  *
  * Raised at construction time so illegal states are never representable.
  */
-final class InvalidValueException extends InvalidArgumentException implements ICalendarException
-{
-}
+final class InvalidValueException extends InvalidArgumentException implements ICalendarException {}

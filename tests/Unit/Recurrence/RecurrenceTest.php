@@ -11,6 +11,7 @@ use Vanere\ICalendar\Recurrence\Frequency;
 use Vanere\ICalendar\Recurrence\Recurrence;
 use Vanere\ICalendar\Recurrence\Weekday;
 use Vanere\ICalendar\Recurrence\WeekdayRule;
+use Vanere\ICalendar\ValueType\DateTimeValue;
 use Vanere\ICalendar\ValueType\Value;
 
 final class RecurrenceTest extends TestCase
@@ -39,7 +40,7 @@ final class RecurrenceTest extends TestCase
     public function test_count_and_until_are_mutually_exclusive_in_constructor(): void
     {
         $this->expectException(InvalidValueException::class);
-        new Recurrence(Frequency::Daily, count: 5, until: \Vanere\ICalendar\ValueType\DateTimeValue::date(new \DateTimeImmutable('2026-12-31')));
+        new Recurrence(Frequency::Daily, count: 5, until: DateTimeValue::date(new \DateTimeImmutable('2026-12-31')));
     }
 
     public function test_until_clears_count_and_vice_versa(): void

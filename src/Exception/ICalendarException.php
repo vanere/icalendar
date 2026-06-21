@@ -12,6 +12,4 @@ use Throwable;
  * Catch this to handle any library-originated failure regardless of the
  * concrete SPL type underneath.
  */
-interface ICalendarException extends Throwable
-{
-}
+interface ICalendarException extends Throwable {}

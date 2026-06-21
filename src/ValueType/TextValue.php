@@ -13,8 +13,7 @@ final readonly class TextValue implements Value
 {
     public function __construct(
         public string $text,
-    ) {
-    }
+    ) {}
 
     public function toString(): string
     {

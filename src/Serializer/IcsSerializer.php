@@ -50,8 +50,7 @@ final class IcsSerializer implements Serializer
 
     public function __construct(
         private readonly bool $strict = false,
-    ) {
-    }
+    ) {}
 
     public function serialize(Component $component): string
     {
@@ -65,17 +64,17 @@ final class IcsSerializer implements Serializer
     private function serializeComponent(Component $component): string
     {
         $wireName = $component->wireName();
-        $out = 'BEGIN:' . $wireName . "\r\n";
+        $out = 'BEGIN:'.$wireName."\r\n";
 
         foreach ($component->properties as $property) {
-            $out .= $this->fold($this->serializeProperty($property)) . "\r\n";
+            $out .= $this->fold($this->serializeProperty($property))."\r\n";
         }
 
         foreach ($component->children as $child) {
             $out .= $this->serializeComponent($child);
         }
 
-        return $out . 'END:' . $wireName . "\r\n";
+        return $out.'END:'.$wireName."\r\n";
     }
 
     private function serializeProperty(Property $property): string
@@ -83,7 +82,7 @@ final class IcsSerializer implements Serializer
         $line = $property->name;
 
         foreach ($this->parametersFor($property) as $name => $value) {
-            $line .= ';' . $name . '=' . $value;
+            $line .= ';'.$name.'='.$value;
         }
 
         $serialized = implode(',', array_map(
@@ -91,7 +90,7 @@ final class IcsSerializer implements Serializer
             $property->values,
         ));
 
-        return $line . ':' . $serialized;
+        return $line.':'.$serialized;
     }
 
     /**
@@ -191,7 +190,7 @@ final class IcsSerializer implements Serializer
         $value = str_replace(['^', "\n", '"'], ['^^', '^n', "^'"], $value);
 
         if ($value === '' || preg_match('/[";:,\s]/', $value) === 1) {
-            return '"' . $value . '"';
+            return '"'.$value.'"';
         }
 
         return $value;

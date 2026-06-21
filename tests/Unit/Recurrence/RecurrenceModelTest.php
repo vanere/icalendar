@@ -12,6 +12,7 @@ use Vanere\ICalendar\Component\Event;
 use Vanere\ICalendar\Parser\Parser;
 use Vanere\ICalendar\Recurrence\Recurrence;
 use Vanere\ICalendar\Recurrence\Weekday;
+use Vanere\ICalendar\Recurrence\WeekdayRule;
 use Vanere\ICalendar\Serializer\IcsSerializer;
 use Vanere\ICalendar\ValueType\DateTimeValue;
 
@@ -55,7 +56,7 @@ final class RecurrenceModelTest extends TestCase
             ->recurrence(Recurrence::weekly()->on(Weekday::Monday, Weekday::Wednesday))
             ->get();
 
-        $ics = (new IcsSerializer())->serialize($event);
+        $ics = (new IcsSerializer)->serialize($event);
         $this->assertStringContainsString('RRULE:FREQ=WEEKLY;BYDAY=MO,WE', $ics);
     }
 
@@ -67,12 +68,12 @@ final class RecurrenceModelTest extends TestCase
                 Event::build()
                     ->uid('1@test')
                     ->starts($this->utc('2026-07-01 10:00:00'))
-                    ->recurrence(Recurrence::monthly()->on(new \Vanere\ICalendar\Recurrence\WeekdayRule(Weekday::Friday, -1)))
+                    ->recurrence(Recurrence::monthly()->on(new WeekdayRule(Weekday::Friday, -1)))
                     ->addExceptionDate($this->utc('2026-08-28 10:00:00')),
             )
             ->get();
 
-        $ics = (new IcsSerializer())->serialize($calendar);
+        $ics = (new IcsSerializer)->serialize($calendar);
         $event = Parser::lenient()->parseCalendar($ics)->events()[0];
 
         $this->assertInstanceOf(Recurrence::class, $event->recurrenceRule());

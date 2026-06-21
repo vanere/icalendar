@@ -6,9 +6,9 @@ namespace Vanere\ICalendar\TimeZone;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Vanere\ICalendar\Component\ComponentList;
 use Vanere\ICalendar\Component\Observance;
 use Vanere\ICalendar\Component\TimeZone;
-use Vanere\ICalendar\Component\ComponentList;
 use Vanere\ICalendar\Exception\InvalidValueException;
 use Vanere\ICalendar\Property\Property;
 use Vanere\ICalendar\Property\PropertyBag;
@@ -71,7 +71,7 @@ final class TimeZoneGenerator
             $standard = $this->fixedObservance($transitions[0]);
         }
 
-        $observances = $daylight !== null ? [$standard, $daylight] : [$standard];
+        $observances = array_values(array_filter([$standard, $daylight]));
 
         return new TimeZone(
             new PropertyBag(new Property('TZID', new TextValue($tzid))),
@@ -80,12 +80,12 @@ final class TimeZoneGenerator
     }
 
     /**
-     * @param array{ts: int, offset: int, isdst: bool, abbr: string} $transition
+     * @param  array{ts: int, offset: int, isdst: bool, abbr: string}  $transition
      */
     private function observance(bool $daylight, int $offsetFrom, array $transition): Observance
     {
         $offsetTo = $transition['offset'];
-        $local = new DateTimeImmutable('@' . ($transition['ts'] + $offsetFrom));
+        $local = new DateTimeImmutable('@'.($transition['ts'] + $offsetFrom));
 
         return new Observance($daylight, new PropertyBag(
             new Property('DTSTART', DateTimeValue::floating($local)),
@@ -97,7 +97,7 @@ final class TimeZoneGenerator
     }
 
     /**
-     * @param array{offset: int, abbr: string} $transition
+     * @param  array{offset: int, abbr: string}  $transition
      */
     private function fixedObservance(array $transition): Observance
     {

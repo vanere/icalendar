@@ -11,6 +11,4 @@ use LogicException;
  * requires (e.g. a VEVENT without UID or DTSTAMP). Lenient serialization — the
  * default — emits whatever is present so round-tripping imperfect input still works.
  */
-final class MissingPropertyException extends LogicException implements ICalendarException
-{
-}
+final class MissingPropertyException extends LogicException implements ICalendarException {}

@@ -19,6 +19,7 @@ use Vanere\ICalendar\Exception\InvalidValueException;
 final readonly class Duration implements Value
 {
     private const SECONDS_PER_WEEK = 604800;
+
     private const SECONDS_PER_DAY = 86400;
 
     private function __construct(
@@ -132,19 +133,19 @@ final readonly class Duration implements Value
     {
         $totalDays = $this->weeks * 7 + $this->days;
 
-        $date = $totalDays > 0 ? $totalDays . 'D' : '';
+        $date = $totalDays > 0 ? $totalDays.'D' : '';
         $time = '';
         if ($this->hours > 0) {
-            $time .= $this->hours . 'H';
+            $time .= $this->hours.'H';
         }
         if ($this->minutes > 0) {
-            $time .= $this->minutes . 'M';
+            $time .= $this->minutes.'M';
         }
         if ($this->seconds > 0) {
-            $time .= $this->seconds . 'S';
+            $time .= $this->seconds.'S';
         }
 
-        $spec = 'P' . $date . ($time !== '' ? 'T' . $time : '');
+        $spec = 'P'.$date.($time !== '' ? 'T'.$time : '');
         if ($spec === 'P') {
             $spec = 'PT0S';
         }
@@ -176,26 +177,26 @@ final readonly class Duration implements Value
         $sign = $this->negative ? '-' : '';
 
         if ($this->weeks > 0) {
-            return $sign . 'P' . $this->weeks . 'W';
+            return $sign.'P'.$this->weeks.'W';
         }
 
-        $date = $this->days > 0 ? $this->days . 'D' : '';
+        $date = $this->days > 0 ? $this->days.'D' : '';
         $time = '';
         if ($this->hours > 0) {
-            $time .= $this->hours . 'H';
+            $time .= $this->hours.'H';
         }
         if ($this->minutes > 0) {
-            $time .= $this->minutes . 'M';
+            $time .= $this->minutes.'M';
         }
         if ($this->seconds > 0) {
-            $time .= $this->seconds . 'S';
+            $time .= $this->seconds.'S';
         }
 
         if ($date === '' && $time === '') {
-            return $sign . 'PT0S';
+            return $sign.'PT0S';
         }
 
-        return $sign . 'P' . $date . ($time !== '' ? 'T' . $time : '');
+        return $sign.'P'.$date.($time !== '' ? 'T'.$time : '');
     }
 
     public function __toString(): string

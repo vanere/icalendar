@@ -22,10 +22,9 @@ use Vanere\ICalendar\ValueType\Value;
 abstract readonly class Component
 {
     public function __construct(
-        public PropertyBag $properties = new PropertyBag(),
-        public ComponentList $children = new ComponentList(),
-    ) {
-    }
+        public PropertyBag $properties = new PropertyBag,
+        public ComponentList $children = new ComponentList,
+    ) {}
 
     /** The RFC 5545 wire token, e.g. "VEVENT". */
     abstract public function wireName(): string;

@@ -13,7 +13,7 @@ final class LineUnfolderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->unfolder = new LineUnfolder();
+        $this->unfolder = new LineUnfolder;
     }
 
     public function test_unfolds_space_continuation(): void

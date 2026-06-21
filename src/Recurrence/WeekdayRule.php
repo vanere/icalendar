@@ -34,7 +34,7 @@ final readonly class WeekdayRule
 
     public function toString(): string
     {
-        return ($this->ordinal !== null ? (string) $this->ordinal : '') . $this->weekday->value;
+        return ($this->ordinal !== null ? (string) $this->ordinal : '').$this->weekday->value;
     }
 
     public function __toString(): string

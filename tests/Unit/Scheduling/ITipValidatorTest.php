@@ -22,7 +22,7 @@ final class ITipValidatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->validator = new ITipValidator();
+        $this->validator = new ITipValidator;
     }
 
     private function invitation(): Event

@@ -39,7 +39,7 @@ final class RlanvinRecurrenceExpander implements RecurrenceExpander
             return ($dtstart >= $fromInstant && $dtstart <= $toInstant) ? [$dtstart] : [];
         }
 
-        $set = new RSet();
+        $set = new RSet;
 
         if ($rrule !== null) {
             $set->addRRule(new RRule($this->ruleParts($rrule, $dtstart)));
@@ -55,10 +55,14 @@ final class RlanvinRecurrenceExpander implements RecurrenceExpander
             $set->addExDate($date->dateTime);
         }
 
-        return array_map(
-            static fn (DateTimeInterface $occurrence): DateTimeImmutable => DateTimeImmutable::createFromInterface($occurrence),
-            $set->getOccurrencesBetween($fromInstant, $toInstant),
-        );
+        $occurrences = [];
+        foreach ($set->getOccurrencesBetween($fromInstant, $toInstant) as $occurrence) {
+            if ($occurrence instanceof DateTimeInterface) {
+                $occurrences[] = DateTimeImmutable::createFromInterface($occurrence);
+            }
+        }
+
+        return $occurrences;
     }
 
     /**

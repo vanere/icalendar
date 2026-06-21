@@ -65,7 +65,7 @@ final class RoundTripTest extends TestCase
     public function test_serialize_of_parse_is_a_stable_fixed_point(): void
     {
         $parser = Parser::lenient();
-        $serializer = new IcsSerializer();
+        $serializer = new IcsSerializer;
 
         $once = $serializer->serialize($parser->parse($this->sampleIcs()));
         $twice = $serializer->serialize($parser->parse($once));
@@ -77,7 +77,7 @@ final class RoundTripTest extends TestCase
 
     public function test_round_trip_preserves_unmodelled_data(): void
     {
-        $output = (new IcsSerializer())->serialize(Parser::lenient()->parse($this->sampleIcs()));
+        $output = (new IcsSerializer)->serialize(Parser::lenient()->parse($this->sampleIcs()));
 
         $this->assertStringContainsString('X-CUSTOM-FLAG;X-PARAM=1:hello world', $output);
         $this->assertStringContainsString('BEGIN:VTIMEZONE', $output);
@@ -97,7 +97,7 @@ final class RoundTripTest extends TestCase
         $this->assertSame('America/New_York', $event->start()?->tzid);
         $this->assertSame(EventStatus::Confirmed, $event->status());
         $this->assertSame(['work', 'planning'], $event->categories());
-        $this->assertSame(Role::Chair, $event->attendees()[0]->parameter('ROLE'));
+        $this->assertSame(Role::Chair, $event->attendees()[0]->role());
         $this->assertCount(1, $event->alarms());
 
         // VTIMEZONE survived as a generic component alongside the event.
@@ -118,7 +118,7 @@ final class RoundTripTest extends TestCase
             )
             ->get();
 
-        $ics = (new IcsSerializer())->serialize($original);
+        $ics = (new IcsSerializer)->serialize($original);
         $reparsed = Parser::lenient()->parseCalendar($ics);
         $event = $reparsed->events()[0];
 
@@ -126,6 +126,6 @@ final class RoundTripTest extends TestCase
         $this->assertSame('Café meeting; bring "notes", please', $event->summary());
         $this->assertSame('Europe/Paris', $event->start()?->tzid);
         $this->assertSame('PT1H', $event->duration()?->toString());
-        $this->assertSame(Role::Chair, $event->attendees()[0]->parameter('ROLE'));
+        $this->assertSame(Role::Chair, $event->attendees()[0]->role());
     }
 }

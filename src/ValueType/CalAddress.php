@@ -16,8 +16,7 @@ final readonly class CalAddress implements Value
 {
     private function __construct(
         public string $uri,
-    ) {
-    }
+    ) {}
 
     /** Build from a bare email address, prefixing the `mailto:` scheme. */
     public static function fromEmail(string $email): self
@@ -27,7 +26,7 @@ final readonly class CalAddress implements Value
             throw new InvalidValueException('Email address cannot be empty.');
         }
 
-        return new self('mailto:' . $email);
+        return new self('mailto:'.$email);
     }
 
     /** Build from any URI (must include a scheme). */

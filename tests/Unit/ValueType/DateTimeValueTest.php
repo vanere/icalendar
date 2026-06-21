@@ -56,7 +56,7 @@ final class DateTimeValueTest extends TestCase
     public function test_zoned_rejects_empty_tzid(): void
     {
         $this->expectException(InvalidValueException::class);
-        DateTimeValue::zoned(new DateTimeImmutable(), '');
+        DateTimeValue::zoned(new DateTimeImmutable, '');
     }
 
     public function test_from_date_time_infers_utc(): void

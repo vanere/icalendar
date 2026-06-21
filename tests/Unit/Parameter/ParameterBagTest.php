@@ -52,7 +52,7 @@ final class ParameterBagTest extends TestCase
 
     public function test_empty_bag(): void
     {
-        $bag = new ParameterBag();
+        $bag = new ParameterBag;
         $this->assertTrue($bag->isEmpty());
         $this->assertNull($bag->get('ROLE'));
         $this->assertCount(0, $bag);

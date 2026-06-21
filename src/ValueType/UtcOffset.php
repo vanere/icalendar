@@ -16,8 +16,7 @@ final readonly class UtcOffset implements Value
 {
     private function __construct(
         public int $totalSeconds,
-    ) {
-    }
+    ) {}
 
     public static function fromSeconds(int $seconds): self
     {

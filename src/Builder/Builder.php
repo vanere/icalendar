@@ -48,14 +48,22 @@ abstract class Builder
         return $this;
     }
 
-    /** Replace any property of this name with a single new one. */
+    /**
+     * Replace any property of this name with a single new one.
+     *
+     * @param  Value|list<Value>  $value
+     */
     protected function set(string $name, Value|array $value, ?ParameterBag $parameters = null): void
     {
         $this->removeProperty($name);
         $this->properties[] = new Property($name, $value, $parameters);
     }
 
-    /** Append a property without removing existing ones of the same name. */
+    /**
+     * Append a property without removing existing ones of the same name.
+     *
+     * @param  Value|list<Value>  $value
+     */
     protected function append(string $name, Value|array $value, ?ParameterBag $parameters = null): void
     {
         $this->properties[] = new Property($name, $value, $parameters);
