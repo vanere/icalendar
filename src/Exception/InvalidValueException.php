@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Exception;
+namespace Erenav\ICalendar\Exception;
 
 use InvalidArgumentException;
 

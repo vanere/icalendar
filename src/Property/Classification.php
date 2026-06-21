@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Property;
+namespace Erenav\ICalendar\Property;
 
-use Vanere\ICalendar\ValueType\Value;
+use Erenav\ICalendar\ValueType\Value;
 
 /**
  * The value of a CLASS property (RFC 5545 §3.8.1.3): the access classification

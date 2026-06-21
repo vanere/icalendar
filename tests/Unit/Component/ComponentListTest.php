@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Component;
+namespace Erenav\ICalendar\Tests\Unit\Component;
 
+use Erenav\ICalendar\Component\Alarm;
+use Erenav\ICalendar\Component\ComponentList;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Component\GenericComponent;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Alarm;
-use Vanere\ICalendar\Component\ComponentList;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Component\GenericComponent;
 
 final class ComponentListTest extends TestCase
 {

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Parser;
+namespace Erenav\ICalendar\Tests\Unit\Parser;
 
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Component\GenericComponent;
+use Erenav\ICalendar\Exception\ParseException;
+use Erenav\ICalendar\Parameter\PartStat;
+use Erenav\ICalendar\Parameter\Role;
+use Erenav\ICalendar\Parser\Parser;
+use Erenav\ICalendar\Property\EventStatus;
+use Erenav\ICalendar\Recurrence\Recurrence;
+use Erenav\ICalendar\ValueType\RawValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Component\GenericComponent;
-use Vanere\ICalendar\Exception\ParseException;
-use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Parameter\Role;
-use Vanere\ICalendar\Parser\Parser;
-use Vanere\ICalendar\Property\EventStatus;
-use Vanere\ICalendar\Recurrence\Recurrence;
-use Vanere\ICalendar\ValueType\RawValue;
 
 final class ParserTest extends TestCase
 {

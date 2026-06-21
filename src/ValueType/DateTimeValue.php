@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\ValueType;
+namespace Erenav\ICalendar\ValueType;
 
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
-use Vanere\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Exception\InvalidValueException;
 
 /**
  * An RFC 5545 DATE or DATE-TIME value (§3.3.4 / §3.3.5).

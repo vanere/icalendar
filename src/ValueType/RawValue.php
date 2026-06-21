@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\ValueType;
+namespace Erenav\ICalendar\ValueType;
 
 /**
  * A verbatim, unmodelled property value preserved exactly as parsed (after line

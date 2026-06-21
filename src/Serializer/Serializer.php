@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Serializer;
+namespace Erenav\ICalendar\Serializer;
 
-use Vanere\ICalendar\Component\Component;
+use Erenav\ICalendar\Component\Component;
 
 /**
  * Strategy seam for rendering a component tree to a textual representation.

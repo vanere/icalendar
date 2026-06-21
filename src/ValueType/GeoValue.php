@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\ValueType;
+namespace Erenav\ICalendar\ValueType;
 
-use Vanere\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Exception\InvalidValueException;
 
 /**
  * The value of an RFC 5545 GEO property (§3.8.1.6): a latitude/longitude pair

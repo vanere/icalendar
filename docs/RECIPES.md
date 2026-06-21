@@ -6,9 +6,9 @@ Copy-paste examples for common tasks. The whole library is two directions:
 - **Parse → read** — turn an `.ics` string into objects, read them with typed getters.
 
 ```php
-use Vanere\ICalendar\Component\{Calendar, Event};
-use Vanere\ICalendar\Serializer\IcsSerializer;
-use Vanere\ICalendar\Parser\Parser;
+use Erenav\ICalendar\Component\{Calendar, Event};
+use Erenav\ICalendar\Serializer\IcsSerializer;
+use Erenav\ICalendar\Parser\Parser;
 ```
 
 ---
@@ -20,7 +20,7 @@ $event = Event::build()
     ->uid('1@example.com')                 // set a stable, unique id
     ->summary('Lunch')
     ->starts(new DateTimeImmutable('2026-07-01 12:00', new DateTimeZone('UTC')))
-    ->lasting(\Vanere\ICalendar\ValueType\Duration::hours(1))
+    ->lasting(\Erenav\ICalendar\ValueType\Duration::hours(1))
     ->get();
 ```
 
@@ -38,7 +38,7 @@ $ics = (new IcsSerializer)->serialize($calendar);   // the .ics string
 ## An all-day event
 
 ```php
-use Vanere\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\DateTimeValue;
 
 $event = Event::build()
     ->uid('2@example.com')
@@ -54,16 +54,16 @@ $event = Event::build()
     ->uid('3@example.com')
     ->summary('Standup')
     ->starts(DateTimeValue::zoned(new DateTimeImmutable('2026-07-01 09:30'), 'America/New_York'))
-    ->lasting(\Vanere\ICalendar\ValueType\Duration::minutes(15))
+    ->lasting(\Erenav\ICalendar\ValueType\Duration::minutes(15))
     ->get();
 ```
 
 ## Add a reminder (alarm)
 
 ```php
-use Vanere\ICalendar\Component\Alarm;
-use Vanere\ICalendar\Property\AlarmAction;
-use Vanere\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\Component\Alarm;
+use Erenav\ICalendar\Property\AlarmAction;
+use Erenav\ICalendar\ValueType\Duration;
 
 $event = Event::build()
     ->uid('4@example.com')
@@ -81,7 +81,7 @@ $event = Event::build()
 ## Add an organizer and attendees
 
 ```php
-use Vanere\ICalendar\Parameter\{Role, PartStat};
+use Erenav\ICalendar\Parameter\{Role, PartStat};
 
 $event = Event::build()
     ->uid('5@example.com')
@@ -95,7 +95,7 @@ $event = Event::build()
 ## A recurring event, then list the next occurrences
 
 ```php
-use Vanere\ICalendar\Recurrence\{Recurrence, Weekday};
+use Erenav\ICalendar\Recurrence\{Recurrence, Weekday};
 
 $event = Event::build()
     ->uid('6@example.com')
@@ -114,7 +114,7 @@ Common rules:
 ```php
 Recurrence::daily()->times(10);                                   // 10 days
 Recurrence::weekly()->every(2)->on(Weekday::Friday);             // every other Friday
-Recurrence::monthly()->on(new \Vanere\ICalendar\Recurrence\WeekdayRule(Weekday::Monday, -1)); // last Monday
+Recurrence::monthly()->on(new \Erenav\ICalendar\Recurrence\WeekdayRule(Weekday::Monday, -1)); // last Monday
 Recurrence::yearly()->until(new DateTimeImmutable('2030-01-01', new DateTimeZone('UTC')));
 ```
 
@@ -156,8 +156,8 @@ $calendar = Calendar::build()->prodId('-//Example//EN')->add($event)->get()
 ## Send an invitation (iTIP)
 
 ```php
-use Vanere\ICalendar\Scheduling\ITip;
-use Vanere\ICalendar\Parameter\PartStat;
+use Erenav\ICalendar\Scheduling\ITip;
+use Erenav\ICalendar\Parameter\PartStat;
 
 $request = ITip::request($event);                                    // organizer invites
 $reply   = ITip::reply($event, 'alice@example.com', PartStat::Accepted);  // attendee responds
@@ -181,5 +181,5 @@ foreach ($calendar->occurrencesBetween($from, $to) as $occurrence) {
 
 ---
 
-Using Laravel? See [`vanere/laravel-icalendar`](https://github.com/vanere/laravel-icalendar)
+Using Laravel? See [`erenav/laravel-icalendar`](https://github.com/erenav/laravel-icalendar)
 for facades, feeds, Eloquent mapping, and mail attachments.

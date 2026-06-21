@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Property;
+namespace Erenav\ICalendar\Property;
 
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\Parameter\ParameterBag;
-use Vanere\ICalendar\Parameter\ParameterValue;
-use Vanere\ICalendar\Parameter\RawParameter;
-use Vanere\ICalendar\ValueType\RawValue;
-use Vanere\ICalendar\ValueType\Value;
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Parameter\ParameterBag;
+use Erenav\ICalendar\Parameter\ParameterValue;
+use Erenav\ICalendar\Parameter\RawParameter;
+use Erenav\ICalendar\ValueType\RawValue;
+use Erenav\ICalendar\ValueType\Value;
 
 /**
  * A single iCalendar property: a name, one or more typed values, and its

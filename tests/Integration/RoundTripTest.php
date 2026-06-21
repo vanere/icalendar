@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Integration;
+namespace Erenav\ICalendar\Tests\Integration;
 
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Parameter\Role;
+use Erenav\ICalendar\Parser\Parser;
+use Erenav\ICalendar\Property\EventStatus;
+use Erenav\ICalendar\Serializer\IcsSerializer;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\Duration;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Parameter\Role;
-use Vanere\ICalendar\Parser\Parser;
-use Vanere\ICalendar\Property\EventStatus;
-use Vanere\ICalendar\Serializer\IcsSerializer;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\Duration;
 
 final class RoundTripTest extends TestCase
 {
@@ -107,7 +107,7 @@ final class RoundTripTest extends TestCase
     public function test_build_serialize_parse_full_circle(): void
     {
         $original = Calendar::build()
-            ->prodId('-//Vanere//EN')
+            ->prodId('-//Erenav//EN')
             ->add(
                 Event::build()
                     ->uid('x@test')

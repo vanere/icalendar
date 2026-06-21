@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\ValueType;
+namespace Erenav\ICalendar\ValueType;
 
-use Vanere\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Exception\InvalidValueException;
 
 /**
  * An RFC 5545 UTC-OFFSET value (§3.3.14), e.g. `+0500`, `-0730`, `+053045`.

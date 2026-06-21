@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Property;
+namespace Erenav\ICalendar\Tests\Unit\Property;
 
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Parameter\ParameterBag;
+use Erenav\ICalendar\Parameter\Role;
+use Erenav\ICalendar\Property\Property;
+use Erenav\ICalendar\ValueType\TextValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\Parameter\ParameterBag;
-use Vanere\ICalendar\Parameter\Role;
-use Vanere\ICalendar\Property\Property;
-use Vanere\ICalendar\ValueType\TextValue;
 
 final class PropertyTest extends TestCase
 {

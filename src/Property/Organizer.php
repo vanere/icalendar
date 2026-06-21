@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Property;
+namespace Erenav\ICalendar\Property;
 
-use Vanere\ICalendar\Parameter\RawParameter;
-use Vanere\ICalendar\ValueType\CalAddress;
+use Erenav\ICalendar\Parameter\RawParameter;
+use Erenav\ICalendar\ValueType\CalAddress;
 
 /**
  * A typed read view over an ORGANIZER property (RFC 5545 §3.8.4.3). The

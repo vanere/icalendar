@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\ValueType;
+namespace Erenav\ICalendar\ValueType;
 
 /**
  * An RFC 5545 TEXT value (§3.3.11). Holds the *logical* (already unescaped)

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Component;
+namespace Erenav\ICalendar\Component;
 
 /**
  * A VTIMEZONE (RFC 5545 §3.6.5): a time-zone definition identified by TZID, made

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Parameter;
+namespace Erenav\ICalendar\Tests\Unit\Parameter;
 
+use Erenav\ICalendar\Parameter\ParameterBag;
+use Erenav\ICalendar\Parameter\PartStat;
+use Erenav\ICalendar\Parameter\RawParameter;
+use Erenav\ICalendar\Parameter\Role;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Parameter\ParameterBag;
-use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Parameter\RawParameter;
-use Vanere\ICalendar\Parameter\Role;
 
 final class ParameterBagTest extends TestCase
 {

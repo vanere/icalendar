@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Property;
+namespace Erenav\ICalendar\Tests\Unit\Property;
 
+use Erenav\ICalendar\Property\AlarmAction;
+use Erenav\ICalendar\Property\Classification;
+use Erenav\ICalendar\Property\EventStatus;
+use Erenav\ICalendar\Property\Transparency;
+use Erenav\ICalendar\ValueType\Value;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Property\AlarmAction;
-use Vanere\ICalendar\Property\Classification;
-use Vanere\ICalendar\Property\EventStatus;
-use Vanere\ICalendar\Property\Transparency;
-use Vanere\ICalendar\ValueType\Value;
 
 final class PropertyValueEnumsTest extends TestCase
 {

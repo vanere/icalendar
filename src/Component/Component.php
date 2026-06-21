@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Component;
+namespace Erenav\ICalendar\Component;
 
-use Vanere\ICalendar\Property\Property;
-use Vanere\ICalendar\Property\PropertyBag;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\IntegerValue;
-use Vanere\ICalendar\ValueType\Value;
+use Erenav\ICalendar\Property\Property;
+use Erenav\ICalendar\Property\PropertyBag;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\IntegerValue;
+use Erenav\ICalendar\ValueType\Value;
 
 /**
  * Base of the iCalendar Composite tree: a component is an ordered bag of

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Recurrence;
+namespace Erenav\ICalendar\Recurrence;
 
 use DateTimeImmutable;
-use Vanere\ICalendar\Component\Event;
+use Erenav\ICalendar\Component\Event;
 
 /**
  * A single resolved occurrence produced by calendar-level expansion.

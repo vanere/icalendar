@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Recurrence;
+namespace Erenav\ICalendar\Recurrence;
 
-use Vanere\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Exception\InvalidValueException;
 
 /**
  * One entry in an RRULE BYDAY part: a weekday with an optional ordinal, e.g.

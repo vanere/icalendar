@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\ValueType;
+namespace Erenav\ICalendar\ValueType;
 
-use Vanere\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Exception\InvalidValueException;
 
 /**
  * An RFC 5545 BOOLEAN value (§3.3.2), serialised as the literal TRUE / FALSE.

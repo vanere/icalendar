@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\ValueType;
+namespace Erenav\ICalendar\Tests\Unit\ValueType;
 
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\ValueType\DateTimeValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\ValueType\DateTimeValue;
 
 final class DateTimeValueTest extends TestCase
 {

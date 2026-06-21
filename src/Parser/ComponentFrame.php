@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Parser;
+namespace Erenav\ICalendar\Parser;
 
-use Vanere\ICalendar\Component\Component;
-use Vanere\ICalendar\Property\Property;
+use Erenav\ICalendar\Component\Component;
+use Erenav\ICalendar\Property\Property;
 
 /**
  * Internal mutable accumulator used while assembling a component from its

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\ValueType;
+namespace Erenav\ICalendar\Tests\Unit\ValueType;
 
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\ValueType\BinaryValue;
+use Erenav\ICalendar\ValueType\BooleanValue;
+use Erenav\ICalendar\ValueType\IntegerValue;
+use Erenav\ICalendar\ValueType\RawValue;
+use Erenav\ICalendar\ValueType\TextValue;
+use Erenav\ICalendar\ValueType\UriValue;
+use Erenav\ICalendar\ValueType\Value;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\ValueType\BinaryValue;
-use Vanere\ICalendar\ValueType\BooleanValue;
-use Vanere\ICalendar\ValueType\IntegerValue;
-use Vanere\ICalendar\ValueType\RawValue;
-use Vanere\ICalendar\ValueType\TextValue;
-use Vanere\ICalendar\ValueType\UriValue;
-use Vanere\ICalendar\ValueType\Value;
 
 final class ScalarValueTest extends TestCase
 {

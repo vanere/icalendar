@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Scheduling;
+namespace Erenav\ICalendar\Tests\Unit\Scheduling;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Exception\SchedulingException;
+use Erenav\ICalendar\Parameter\PartStat;
+use Erenav\ICalendar\Scheduling\ITip;
+use Erenav\ICalendar\Scheduling\ITipValidator;
+use Erenav\ICalendar\Scheduling\Method;
+use Erenav\ICalendar\ValueType\DateTimeValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Exception\SchedulingException;
-use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Scheduling\ITip;
-use Vanere\ICalendar\Scheduling\ITipValidator;
-use Vanere\ICalendar\Scheduling\Method;
-use Vanere\ICalendar\ValueType\DateTimeValue;
 
 final class ITipValidatorTest extends TestCase
 {

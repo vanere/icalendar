@@ -1,18 +1,18 @@
 {
-    "name": "vanere/icalendar",
+    "name": "erenav/icalendar",
     "description": "A modern, strongly-typed, immutable iCalendar (RFC 5545 / 7986 / 5546) library for PHP.",
     "type": "library",
     "license": "MIT",
     "keywords": ["icalendar", "ical", "ics", "rfc5545", "rfc7986", "rfc5546", "calendar", "vevent"],
-    "homepage": "https://github.com/vanere/icalendar",
+    "homepage": "https://github.com/erenav/icalendar",
     "support": {
-        "issues": "https://github.com/vanere/icalendar/issues",
-        "source": "https://github.com/vanere/icalendar"
+        "issues": "https://github.com/erenav/icalendar/issues",
+        "source": "https://github.com/erenav/icalendar"
     },
     "authors": [
         {
-            "name": "vanere",
-            "homepage": "https://github.com/vanere"
+            "name": "erenav",
+            "homepage": "https://github.com/erenav"
         }
     ],
     "require": {
@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Vanere\\ICalendar\\": "src/"
+            "Erenav\\ICalendar\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vanere\\ICalendar\\Tests\\": "tests/"
+            "Erenav\\ICalendar\\Tests\\": "tests/"
         }
     },
     "scripts": {

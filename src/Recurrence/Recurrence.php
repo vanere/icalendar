@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Recurrence;
+namespace Erenav\ICalendar\Recurrence;
 
 use DateTimeInterface;
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\Value;
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\Value;
 
 /**
  * An immutable, typed RRULE (RFC 5545 §3.3.10) — the value of a recurrence rule.

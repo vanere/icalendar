@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Component;
+namespace Erenav\ICalendar\Component;
 
-use Vanere\ICalendar\Builder\AlarmBuilder;
-use Vanere\ICalendar\Property\AlarmAction;
-use Vanere\ICalendar\ValueType\Duration;
-use Vanere\ICalendar\ValueType\TextValue;
-use Vanere\ICalendar\ValueType\Value;
+use Erenav\ICalendar\Builder\AlarmBuilder;
+use Erenav\ICalendar\Property\AlarmAction;
+use Erenav\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\ValueType\TextValue;
+use Erenav\ICalendar\ValueType\Value;
 
 /**
  * A VALARM, always a child of an event (or to-do). Its TRIGGER value is either a

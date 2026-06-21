@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Builder;
+namespace Erenav\ICalendar\Builder;
 
 use DateInterval;
 use DateTimeInterface;
-use Vanere\ICalendar\Component\Component;
-use Vanere\ICalendar\Component\ComponentList;
-use Vanere\ICalendar\Parameter\ParameterBag;
-use Vanere\ICalendar\Property\Property;
-use Vanere\ICalendar\Property\PropertyBag;
-use Vanere\ICalendar\ValueType\CalAddress;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\Duration;
-use Vanere\ICalendar\ValueType\TextValue;
-use Vanere\ICalendar\ValueType\Value;
+use Erenav\ICalendar\Component\Component;
+use Erenav\ICalendar\Component\ComponentList;
+use Erenav\ICalendar\Parameter\ParameterBag;
+use Erenav\ICalendar\Property\Property;
+use Erenav\ICalendar\Property\PropertyBag;
+use Erenav\ICalendar\ValueType\CalAddress;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\ValueType\TextValue;
+use Erenav\ICalendar\ValueType\Value;
 
 /**
  * Shared, mutable base for the component builders.

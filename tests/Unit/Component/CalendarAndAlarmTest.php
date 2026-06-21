@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Component;
+namespace Erenav\ICalendar\Tests\Unit\Component;
 
+use Erenav\ICalendar\Component\Alarm;
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\ComponentList;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Component\GenericComponent;
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Property\AlarmAction;
+use Erenav\ICalendar\Property\Property;
+use Erenav\ICalendar\Property\PropertyBag;
+use Erenav\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\ValueType\IntegerValue;
+use Erenav\ICalendar\ValueType\TextValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Alarm;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\ComponentList;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Component\GenericComponent;
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\Property\AlarmAction;
-use Vanere\ICalendar\Property\Property;
-use Vanere\ICalendar\Property\PropertyBag;
-use Vanere\ICalendar\ValueType\Duration;
-use Vanere\ICalendar\ValueType\IntegerValue;
-use Vanere\ICalendar\ValueType\TextValue;
 
 final class CalendarAndAlarmTest extends TestCase
 {
@@ -25,7 +25,7 @@ final class CalendarAndAlarmTest extends TestCase
         $calendar = new Calendar(
             new PropertyBag(
                 new Property('VERSION', new TextValue('2.0')),
-                new Property('PRODID', new TextValue('-//Vanere//EN')),
+                new Property('PRODID', new TextValue('-//Erenav//EN')),
                 new Property('CALSCALE', new TextValue('GREGORIAN')),
             ),
             new ComponentList(new Event, new GenericComponent('VTIMEZONE')),
@@ -33,7 +33,7 @@ final class CalendarAndAlarmTest extends TestCase
 
         $this->assertSame('VCALENDAR', $calendar->wireName());
         $this->assertSame('2.0', $calendar->version());
-        $this->assertSame('-//Vanere//EN', $calendar->productId());
+        $this->assertSame('-//Erenav//EN', $calendar->productId());
         $this->assertSame('GREGORIAN', $calendar->calendarScale());
         $this->assertCount(1, $calendar->events());
         $this->assertCount(2, $calendar->components());

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Parser;
+namespace Erenav\ICalendar\Parser;
 
 /**
  * First stage of the parse pipeline (RFC 5545 §3.1): normalise line endings and

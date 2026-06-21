@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Property;
+namespace Erenav\ICalendar\Property;
 
-use Vanere\ICalendar\Parameter\CuType;
-use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Parameter\RawParameter;
-use Vanere\ICalendar\Parameter\Role;
-use Vanere\ICalendar\ValueType\CalAddress;
+use Erenav\ICalendar\Parameter\CuType;
+use Erenav\ICalendar\Parameter\PartStat;
+use Erenav\ICalendar\Parameter\RawParameter;
+use Erenav\ICalendar\Parameter\Role;
+use Erenav\ICalendar\ValueType\CalAddress;
 
 /**
  * A typed read view over an ATTENDEE property (RFC 5545 §3.8.4.1): the calendar

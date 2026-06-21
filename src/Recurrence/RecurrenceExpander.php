@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Recurrence;
+namespace Erenav\ICalendar\Recurrence;
 
 use DateTimeInterface;
-use Vanere\ICalendar\Component\Event;
+use Erenav\ICalendar\Component\Event;
 
 /**
  * Expands an event's recurrence (RRULE + RDATE − EXDATE) into concrete

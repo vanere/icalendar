@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Component;
+namespace Erenav\ICalendar\Component;
 
 use ArrayIterator;
 use Countable;

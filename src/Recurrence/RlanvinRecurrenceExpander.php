@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Recurrence;
+namespace Erenav\ICalendar\Recurrence;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use Erenav\ICalendar\Component\Event;
 use RRule\RRule;
 use RRule\RSet;
-use Vanere\ICalendar\Component\Event;
 
 /**
  * Default {@see RecurrenceExpander}, backed by `rlanvin/php-rrule`.

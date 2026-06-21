@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Parameter;
+namespace Erenav\ICalendar\Parameter;
 
 /**
  * The RELATED parameter (RFC 5545 §3.2.14): whether a relative VALARM TRIGGER

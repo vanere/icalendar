@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Parameter;
+namespace Erenav\ICalendar\Parameter;
 
 /**
  * The FBTYPE parameter (RFC 5545 §3.2.9): the free/busy time type carried by a

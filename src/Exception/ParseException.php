@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Exception;
+namespace Erenav\ICalendar\Exception;
 
+use Erenav\ICalendar\Parser\Parser;
 use RuntimeException;
-use Vanere\ICalendar\Parser\Parser;
 
 /**
  * Thrown by strict parsing when input violates RFC 5545. Lenient parsing — the

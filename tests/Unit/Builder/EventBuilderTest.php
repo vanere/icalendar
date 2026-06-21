@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Builder;
+namespace Erenav\ICalendar\Tests\Unit\Builder;
 
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Parameter\PartStat;
+use Erenav\ICalendar\Parameter\Role;
+use Erenav\ICalendar\Property\EventStatus;
+use Erenav\ICalendar\ValueType\Duration;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Parameter\Role;
-use Vanere\ICalendar\Property\EventStatus;
-use Vanere\ICalendar\ValueType\Duration;
 
 final class EventBuilderTest extends TestCase
 {

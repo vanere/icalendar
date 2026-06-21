@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Component;
+namespace Erenav\ICalendar\Tests\Unit\Component;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Erenav\ICalendar\Component\Alarm;
+use Erenav\ICalendar\Component\ComponentList;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Property\Attendee;
+use Erenav\ICalendar\Property\EventStatus;
+use Erenav\ICalendar\Property\Property;
+use Erenav\ICalendar\Property\PropertyBag;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\ValueType\GeoValue;
+use Erenav\ICalendar\ValueType\IntegerValue;
+use Erenav\ICalendar\ValueType\TextValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Alarm;
-use Vanere\ICalendar\Component\ComponentList;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Property\Attendee;
-use Vanere\ICalendar\Property\EventStatus;
-use Vanere\ICalendar\Property\Property;
-use Vanere\ICalendar\Property\PropertyBag;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\Duration;
-use Vanere\ICalendar\ValueType\GeoValue;
-use Vanere\ICalendar\ValueType\IntegerValue;
-use Vanere\ICalendar\ValueType\TextValue;
 
 final class EventTest extends TestCase
 {

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\TimeZone;
+namespace Erenav\ICalendar\TimeZone;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Vanere\ICalendar\Component\ComponentList;
-use Vanere\ICalendar\Component\Observance;
-use Vanere\ICalendar\Component\TimeZone;
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\Property\Property;
-use Vanere\ICalendar\Property\PropertyBag;
-use Vanere\ICalendar\Recurrence\Recurrence;
-use Vanere\ICalendar\Recurrence\Weekday;
-use Vanere\ICalendar\Recurrence\WeekdayRule;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\TextValue;
-use Vanere\ICalendar\ValueType\UtcOffset;
+use Erenav\ICalendar\Component\ComponentList;
+use Erenav\ICalendar\Component\Observance;
+use Erenav\ICalendar\Component\TimeZone;
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Property\Property;
+use Erenav\ICalendar\Property\PropertyBag;
+use Erenav\ICalendar\Recurrence\Recurrence;
+use Erenav\ICalendar\Recurrence\Weekday;
+use Erenav\ICalendar\Recurrence\WeekdayRule;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\TextValue;
+use Erenav\ICalendar\ValueType\UtcOffset;
 
 /**
  * Builds a {@see TimeZone} (VTIMEZONE) for an IANA time-zone id from PHP's bundled

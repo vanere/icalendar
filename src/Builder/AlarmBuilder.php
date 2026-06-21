@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Builder;
+namespace Erenav\ICalendar\Builder;
 
 use DateInterval;
 use DateTimeInterface;
-use Vanere\ICalendar\Component\Alarm;
-use Vanere\ICalendar\Property\AlarmAction;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\Duration;
-use Vanere\ICalendar\ValueType\IntegerValue;
-use Vanere\ICalendar\ValueType\TextValue;
+use Erenav\ICalendar\Component\Alarm;
+use Erenav\ICalendar\Property\AlarmAction;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\ValueType\IntegerValue;
+use Erenav\ICalendar\ValueType\TextValue;
 
 /**
  * Fluent builder for a {@see Alarm}. The TRIGGER may be relative (a duration,

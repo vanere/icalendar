@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Parameter;
+namespace Erenav\ICalendar\Parameter;
 
 /**
  * Implemented by every enum that models the typed value of a known RFC 5545

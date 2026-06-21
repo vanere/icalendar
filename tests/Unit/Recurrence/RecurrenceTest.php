@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Recurrence;
+namespace Erenav\ICalendar\Tests\Unit\Recurrence;
 
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Recurrence\Frequency;
+use Erenav\ICalendar\Recurrence\Recurrence;
+use Erenav\ICalendar\Recurrence\Weekday;
+use Erenav\ICalendar\Recurrence\WeekdayRule;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\Value;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\Recurrence\Frequency;
-use Vanere\ICalendar\Recurrence\Recurrence;
-use Vanere\ICalendar\Recurrence\Weekday;
-use Vanere\ICalendar\Recurrence\WeekdayRule;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\Value;
 
 final class RecurrenceTest extends TestCase
 {

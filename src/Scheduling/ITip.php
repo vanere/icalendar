@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Scheduling;
+namespace Erenav\ICalendar\Scheduling;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Vanere\ICalendar\Builder\EventBuilder;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Exception\SchedulingException;
-use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Property\EventStatus;
+use Erenav\ICalendar\Builder\EventBuilder;
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Exception\SchedulingException;
+use Erenav\ICalendar\Parameter\PartStat;
+use Erenav\ICalendar\Property\EventStatus;
 
 /**
  * Builds iTIP (RFC 5546) scheduling messages — VCALENDARs with a METHOD and the
@@ -23,7 +23,7 @@ use Vanere\ICalendar\Property\EventStatus;
  */
 final class ITip
 {
-    public const PRODID = '-//vanere/icalendar//iTIP//EN';
+    public const PRODID = '-//erenav/icalendar//iTIP//EN';
 
     /**
      * A non-interactive PUBLISH feed of one or more events.

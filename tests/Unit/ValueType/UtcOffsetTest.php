@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\ValueType;
+namespace Erenav\ICalendar\Tests\Unit\ValueType;
 
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\ValueType\UtcOffset;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\ValueType\UtcOffset;
 
 final class UtcOffsetTest extends TestCase
 {

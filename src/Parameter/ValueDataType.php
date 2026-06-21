@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Parameter;
+namespace Erenav\ICalendar\Parameter;
 
 /**
  * The VALUE parameter (RFC 5545 §3.2.20): explicitly states the value type of a

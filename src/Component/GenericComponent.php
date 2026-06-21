@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Component;
+namespace Erenav\ICalendar\Component;
 
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\Property\PropertyBag;
-use Vanere\ICalendar\ValueType\RawValue;
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Property\PropertyBag;
+use Erenav\ICalendar\ValueType\RawValue;
 
 /**
  * A component the library does not yet model with a dedicated type (VTODO,

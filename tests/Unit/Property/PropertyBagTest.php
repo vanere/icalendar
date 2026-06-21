@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Property;
+namespace Erenav\ICalendar\Tests\Unit\Property;
 
+use Erenav\ICalendar\Property\Property;
+use Erenav\ICalendar\Property\PropertyBag;
+use Erenav\ICalendar\ValueType\TextValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Property\Property;
-use Vanere\ICalendar\Property\PropertyBag;
-use Vanere\ICalendar\ValueType\TextValue;
 
 final class PropertyBagTest extends TestCase
 {

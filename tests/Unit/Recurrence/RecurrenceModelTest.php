@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Recurrence;
+namespace Erenav\ICalendar\Tests\Unit\Recurrence;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Parser\Parser;
+use Erenav\ICalendar\Recurrence\Recurrence;
+use Erenav\ICalendar\Recurrence\Weekday;
+use Erenav\ICalendar\Recurrence\WeekdayRule;
+use Erenav\ICalendar\Serializer\IcsSerializer;
+use Erenav\ICalendar\ValueType\DateTimeValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Parser\Parser;
-use Vanere\ICalendar\Recurrence\Recurrence;
-use Vanere\ICalendar\Recurrence\Weekday;
-use Vanere\ICalendar\Recurrence\WeekdayRule;
-use Vanere\ICalendar\Serializer\IcsSerializer;
-use Vanere\ICalendar\ValueType\DateTimeValue;
 
 final class RecurrenceModelTest extends TestCase
 {

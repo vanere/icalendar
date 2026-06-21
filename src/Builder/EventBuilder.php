@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Builder;
+namespace Erenav\ICalendar\Builder;
 
 use DateInterval;
 use DateTimeInterface;
-use Vanere\ICalendar\Component\Alarm;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Parameter\CuType;
-use Vanere\ICalendar\Parameter\ParameterBag;
-use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Parameter\RawParameter;
-use Vanere\ICalendar\Parameter\Role;
-use Vanere\ICalendar\Property\Classification;
-use Vanere\ICalendar\Property\EventStatus;
-use Vanere\ICalendar\Property\Transparency;
-use Vanere\ICalendar\Recurrence\Recurrence;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\Duration;
-use Vanere\ICalendar\ValueType\GeoValue;
-use Vanere\ICalendar\ValueType\IntegerValue;
-use Vanere\ICalendar\ValueType\TextValue;
-use Vanere\ICalendar\ValueType\UriValue;
+use Erenav\ICalendar\Component\Alarm;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Parameter\CuType;
+use Erenav\ICalendar\Parameter\ParameterBag;
+use Erenav\ICalendar\Parameter\PartStat;
+use Erenav\ICalendar\Parameter\RawParameter;
+use Erenav\ICalendar\Parameter\Role;
+use Erenav\ICalendar\Property\Classification;
+use Erenav\ICalendar\Property\EventStatus;
+use Erenav\ICalendar\Property\Transparency;
+use Erenav\ICalendar\Recurrence\Recurrence;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\ValueType\GeoValue;
+use Erenav\ICalendar\ValueType\IntegerValue;
+use Erenav\ICalendar\ValueType\TextValue;
+use Erenav\ICalendar\ValueType\UriValue;
 
 /**
  * Fluent builder for a {@see Event}. Date-time setters accept any

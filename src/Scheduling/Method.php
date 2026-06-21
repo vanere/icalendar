@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Scheduling;
+namespace Erenav\ICalendar\Scheduling;
 
-use Vanere\ICalendar\ValueType\Value;
+use Erenav\ICalendar\ValueType\Value;
 
 /**
  * The value of a VCALENDAR METHOD property (RFC 5546 §1.4): the iTIP transaction

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Component;
+namespace Erenav\ICalendar\Component;
 
-use Vanere\ICalendar\Property\PropertyBag;
-use Vanere\ICalendar\Recurrence\Recurrence;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\UtcOffset;
+use Erenav\ICalendar\Property\PropertyBag;
+use Erenav\ICalendar\Recurrence\Recurrence;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\UtcOffset;
 
 /**
  * A STANDARD or DAYLIGHT sub-component of a {@see TimeZone} (RFC 5545 §3.6.5):

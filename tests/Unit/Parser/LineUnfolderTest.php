@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Parser;
+namespace Erenav\ICalendar\Tests\Unit\Parser;
 
+use Erenav\ICalendar\Parser\LineUnfolder;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Parser\LineUnfolder;
 
 final class LineUnfolderTest extends TestCase
 {

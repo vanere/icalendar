@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Serializer;
+namespace Erenav\ICalendar\Serializer;
 
-use Vanere\ICalendar\Component\Component;
-use Vanere\ICalendar\Exception\MissingPropertyException;
-use Vanere\ICalendar\Parameter\ParameterValue;
-use Vanere\ICalendar\Parameter\RawParameter;
-use Vanere\ICalendar\Property\Property;
-use Vanere\ICalendar\ValueType\BinaryValue;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\Duration;
-use Vanere\ICalendar\ValueType\Period;
-use Vanere\ICalendar\ValueType\TextValue;
-use Vanere\ICalendar\ValueType\Value;
+use Erenav\ICalendar\Component\Component;
+use Erenav\ICalendar\Exception\MissingPropertyException;
+use Erenav\ICalendar\Parameter\ParameterValue;
+use Erenav\ICalendar\Parameter\RawParameter;
+use Erenav\ICalendar\Property\Property;
+use Erenav\ICalendar\ValueType\BinaryValue;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\ValueType\Period;
+use Erenav\ICalendar\ValueType\TextValue;
+use Erenav\ICalendar\ValueType\Value;
 
 /**
  * Renders a component tree to RFC 5545 iCalendar text (CRLF line endings,

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Integration;
+namespace Erenav\ICalendar\Tests\Integration;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Recurrence\Recurrence;
+use Erenav\ICalendar\ValueType\DateTimeValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Recurrence\Recurrence;
-use Vanere\ICalendar\ValueType\DateTimeValue;
 
 final class OccurrenceExpansionTest extends TestCase
 {

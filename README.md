@@ -1,10 +1,10 @@
-# vanere/icalendar
+# erenav/icalendar
 
-[![Latest Version](https://img.shields.io/packagist/v/vanere/icalendar.svg)](https://packagist.org/packages/vanere/icalendar)
-[![Tests](https://github.com/vanere/icalendar/actions/workflows/ci.yml/badge.svg)](https://github.com/vanere/icalendar/actions/workflows/ci.yml)
-[![PHP Version](https://img.shields.io/packagist/php-v/vanere/icalendar.svg)](https://packagist.org/packages/vanere/icalendar)
-[![Total Downloads](https://img.shields.io/packagist/dt/vanere/icalendar.svg)](https://packagist.org/packages/vanere/icalendar)
-[![License](https://img.shields.io/packagist/l/vanere/icalendar.svg)](LICENSE)
+[![Latest Version](https://img.shields.io/packagist/v/erenav/icalendar.svg)](https://packagist.org/packages/erenav/icalendar)
+[![Tests](https://github.com/erenav/icalendar/actions/workflows/ci.yml/badge.svg)](https://github.com/erenav/icalendar/actions/workflows/ci.yml)
+[![PHP Version](https://img.shields.io/packagist/php-v/erenav/icalendar.svg)](https://packagist.org/packages/erenav/icalendar)
+[![Total Downloads](https://img.shields.io/packagist/dt/erenav/icalendar.svg)](https://packagist.org/packages/erenav/icalendar)
+[![License](https://img.shields.io/packagist/l/erenav/icalendar.svg)](LICENSE)
 
 A modern, strongly-typed, **immutable** iCalendar library for PHP 8.3+.
 
@@ -17,9 +17,9 @@ immutable value objects, typed getters, and **lossless round-tripping** of anyth
 the library doesn't model.
 
 ```php
-use Vanere\ICalendar\Component\{Calendar, Event};
-use Vanere\ICalendar\Serializer\IcsSerializer;
-use Vanere\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\Component\{Calendar, Event};
+use Erenav\ICalendar\Serializer\IcsSerializer;
+use Erenav\ICalendar\ValueType\Duration;
 
 $calendar = Calendar::build()
     ->prodId('-//Acme//Booking 1.0//EN')
@@ -73,7 +73,7 @@ echo (new IcsSerializer)->serialize($calendar);
 ## Why this library
 
 [`sabre/vobject`](https://github.com/sabre-io/vobject) is the established option, but
-it leans on stringly-typed array access and mutable objects. `vanere/icalendar` aims for:
+it leans on stringly-typed array access and mutable objects. `erenav/icalendar` aims for:
 
 - **Strong typing** — enums for parameters/statuses, dedicated value objects for dates,
   durations, periods, geo, etc. Illegal states are unconstructable.
@@ -92,7 +92,7 @@ it leans on stringly-typed array access and mutable objects. `vanere/icalendar` 
 ## Installation
 
 ```bash
-composer require vanere/icalendar
+composer require erenav/icalendar
 ```
 
 ## Quick start
@@ -100,10 +100,10 @@ composer require vanere/icalendar
 ```php
 require 'vendor/autoload.php';
 
-use Vanere\ICalendar\Component\{Calendar, Event};
-use Vanere\ICalendar\Parser\Parser;
-use Vanere\ICalendar\Serializer\IcsSerializer;
-use Vanere\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\Component\{Calendar, Event};
+use Erenav\ICalendar\Parser\Parser;
+use Erenav\ICalendar\Serializer\IcsSerializer;
+use Erenav\ICalendar\ValueType\Duration;
 
 // Build
 $calendar = Calendar::build()
@@ -131,10 +131,10 @@ echo $parsed->events()[0]->summary(); // "Lunch"
 Calling `->get()` produces the **immutable** component.
 
 ```php
-use Vanere\ICalendar\Component\{Calendar, Event};
-use Vanere\ICalendar\Parameter\{Role, PartStat};
-use Vanere\ICalendar\Property\{EventStatus, Transparency, Classification};
-use Vanere\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\Component\{Calendar, Event};
+use Erenav\ICalendar\Parameter\{Role, PartStat};
+use Erenav\ICalendar\Property\{EventStatus, Transparency, Classification};
+use Erenav\ICalendar\ValueType\Duration;
 
 $event = Event::build()
     ->uid('meeting-42@acme.test')
@@ -166,7 +166,7 @@ $calendar = Calendar::build()
 ## Serializing to `.ics`
 
 ```php
-use Vanere\ICalendar\Serializer\IcsSerializer;
+use Erenav\ICalendar\Serializer\IcsSerializer;
 
 $ics = (new IcsSerializer)->serialize($calendar);
 
@@ -181,7 +181,7 @@ parameters from the values themselves.
 ## Parsing `.ics`
 
 ```php
-use Vanere\ICalendar\Parser\Parser;
+use Erenav\ICalendar\Parser\Parser;
 
 $calendar = Parser::lenient()->parseCalendar($icsString); // returns Calendar
 $component = Parser::lenient()->parse($icsString);         // returns the root Component
@@ -252,7 +252,7 @@ iCalendar distinguishes four date/time forms. The `DateTimeValue` value object m
 all of them, and is the single source of truth for the `TZID` / `VALUE=DATE` parameters.
 
 ```php
-use Vanere\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\DateTimeValue;
 
 DateTimeValue::utc(new DateTimeImmutable('2026-07-01 10:00', new DateTimeZone('UTC')));
 //   → 20260701T100000Z
@@ -290,7 +290,7 @@ $allDay = Event::build()
 It bridges to native PHP both ways:
 
 ```php
-use Vanere\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\ValueType\Duration;
 
 Duration::hours(1);                 // PT1H
 Duration::minutes(-15);             // -PT15M  (negative — e.g. an alarm trigger)
@@ -309,7 +309,7 @@ Duration::hours(1)->toDateInterval();
 the raw `Property` objects (lossless — you get the address *and* all parameters).
 
 ```php
-use Vanere\ICalendar\Parameter\{Role, PartStat, CuType};
+use Erenav\ICalendar\Parameter\{Role, PartStat, CuType};
 
 $event = Event::build()
     ->organizer('boss@acme.test', name: 'The Boss', sentBy: 'mailto:assistant@acme.test')
@@ -330,9 +330,9 @@ $attendee->property;                   // the underlying Property (lossless esca
 ## Alarms
 
 ```php
-use Vanere\ICalendar\Component\{Event, Alarm};
-use Vanere\ICalendar\Property\AlarmAction;
-use Vanere\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\Component\{Event, Alarm};
+use Erenav\ICalendar\Property\AlarmAction;
+use Erenav\ICalendar\ValueType\Duration;
 
 $event = Event::build()
     ->uid('1@acme.test')
@@ -354,7 +354,7 @@ Recurrence rules are modelled by the immutable `Recurrence` value object and bui
 fluently (each modifier returns a new instance):
 
 ```php
-use Vanere\ICalendar\Recurrence\{Recurrence, Weekday, WeekdayRule};
+use Erenav\ICalendar\Recurrence\{Recurrence, Weekday, WeekdayRule};
 
 Recurrence::daily()->times(10);                          // FREQ=DAILY;COUNT=10
 Recurrence::weekly()->every(2)->on(Weekday::Monday, Weekday::Wednesday);
@@ -366,7 +366,7 @@ Recurrence::parse('FREQ=WEEKLY;BYDAY=MO,WE');           // from an RRULE string
 Attach one to an event, with optional exception (`EXDATE`) and extra (`RDATE`) dates:
 
 ```php
-use Vanere\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\DateTimeValue;
 
 $event = Event::build()
     ->uid('standup@acme.test')
@@ -454,8 +454,8 @@ Build [RFC 5546](https://www.rfc-editor.org/rfc/rfc5546) scheduling messages —
 replies, cancellations — each with the correct `METHOD` and required properties, via `ITip`:
 
 ```php
-use Vanere\ICalendar\Scheduling\{ITip, ITipValidator};
-use Vanere\ICalendar\Parameter\PartStat;
+use Erenav\ICalendar\Scheduling\{ITip, ITipValidator};
+use Erenav\ICalendar\Parameter\PartStat;
 
 $request = ITip::request($event);                                      // organizer invites attendees
 $reply   = ITip::reply($event, 'alice@acme.test', PartStat::Accepted); // attendee responds
@@ -475,7 +475,7 @@ $validator->validate($request);    // list<string> of problems (empty = valid)
 $validator->assertValid($request); // throws SchedulingException if invalid
 ```
 
-In the [Laravel package](https://github.com/vanere/laravel-icalendar), attaching an iTIP
+In the [Laravel package](https://github.com/erenav/laravel-icalendar), attaching an iTIP
 calendar advertises the method in the MIME type (`text/calendar; method=REQUEST`), so mail
 clients treat it as an invitation.
 
@@ -515,11 +515,11 @@ Parser::strict()->parseCalendar($ics);          // validate input
 
 ## Error handling
 
-Every exception implements `Vanere\ICalendar\Exception\ICalendarException`, so you can
+Every exception implements `Erenav\ICalendar\Exception\ICalendarException`, so you can
 catch the whole family at once.
 
 ```php
-use Vanere\ICalendar\Exception\{ICalendarException, ParseException, InvalidValueException, MissingPropertyException};
+use Erenav\ICalendar\Exception\{ICalendarException, ParseException, InvalidValueException, MissingPropertyException};
 
 try {
     $calendar = Parser::strict()->parseCalendar($ics);
@@ -554,7 +554,7 @@ try {
 - **Immutability surprise:** builder methods that read like mutations (`addAttendee`)
   mutate the *builder*; the produced component is immutable. Edit an existing component
   via `->toBuilder()`.
-- **No Laravel glue here.** The framework integration (`vanere/laravel-icalendar`) is a
+- **No Laravel glue here.** The framework integration (`erenav/laravel-icalendar`) is a
   separate package (phase 4). This core has zero framework dependencies.
 
 ## Architecture
@@ -597,7 +597,7 @@ The suite is split into `tests/Unit` (per-class) and `tests/Integration`
 | 1 | Core model, parse/serialize, Level-1 round-trip (RFC 5545 + 7986) | ✅ done |
 | 2 | Recurrence + time zones — `occurrencesBetween()`, `RECURRENCE-ID` overrides, `VTIMEZONE` generation/typed components | ✅ done |
 | 3 | iTIP scheduling (RFC 5546) — METHOD, message builders, validation | ✅ done |
-| 4 | [`vanere/laravel-icalendar`](https://github.com/vanere/laravel-icalendar) — service provider, facade, Eloquent mapping, feeds, Artisan, notifications | ✅ released separately |
+| 4 | [`erenav/laravel-icalendar`](https://github.com/erenav/laravel-icalendar) — service provider, facade, Eloquent mapping, feeds, Artisan, notifications | ✅ released separately |
 | 5 | jCal/xCal serializers, custom-`VTIMEZONE` offset resolution, byte-fidelity round-trip | someday |
 
 ## License

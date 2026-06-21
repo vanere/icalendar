@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Integration;
+namespace Erenav\ICalendar\Tests\Integration;
 
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Parameter\Role;
+use Erenav\ICalendar\Parser\Parser;
+use Erenav\ICalendar\Scheduling\Method;
+use Erenav\ICalendar\Serializer\IcsSerializer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Parameter\Role;
-use Vanere\ICalendar\Parser\Parser;
-use Vanere\ICalendar\Scheduling\Method;
-use Vanere\ICalendar\Serializer\IcsSerializer;
 
 /**
  * Hardening against real-world exports (Google / Apple / Outlook), which bend the

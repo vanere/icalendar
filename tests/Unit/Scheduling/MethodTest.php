@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Scheduling;
+namespace Erenav\ICalendar\Tests\Unit\Scheduling;
 
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Scheduling\Method;
+use Erenav\ICalendar\ValueType\Value;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Scheduling\Method;
-use Vanere\ICalendar\ValueType\Value;
 
 final class MethodTest extends TestCase
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Builder;
+namespace Erenav\ICalendar\Builder;
 
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\Component;
-use Vanere\ICalendar\Scheduling\Method;
-use Vanere\ICalendar\ValueType\TextValue;
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\Component;
+use Erenav\ICalendar\Scheduling\Method;
+use Erenav\ICalendar\ValueType\TextValue;
 
 /**
  * Fluent builder for a {@see Calendar}. VERSION defaults to "2.0" (overridable);

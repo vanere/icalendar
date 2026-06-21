@@ -1,11 +1,11 @@
-# vanere/icalendar — Design & Roadmap
+# erenav/icalendar — Design & Roadmap
 
 Two-package project:
 
-- **`vanere/icalendar`** — framework-agnostic core (this repo).
-- **`vanere/laravel-icalendar`** — Laravel wrapper, depends on the core (phase 4).
+- **`erenav/icalendar`** — framework-agnostic core (this repo).
+- **`erenav/laravel-icalendar`** — Laravel wrapper, depends on the core (phase 4).
 
-Namespace: `Vanere\ICalendar`. PHP **8.3+**.
+Namespace: `Erenav\ICalendar`. PHP **8.3+**.
 
 ---
 
@@ -66,7 +66,7 @@ properties we don't model) is what gives Level-1 round-trip for free.
 ### Component layer
 
 ```php
-namespace Vanere\ICalendar\Component;
+namespace Erenav\ICalendar\Component;
 
 abstract readonly class Component
 {
@@ -117,7 +117,7 @@ $event = Event::build()
     ->get();                                  // → immutable Event
 
 $calendar = Calendar::build()
-    ->prodId('-//Vanere//ICalendar 1.0//EN')
+    ->prodId('-//Erenav//ICalendar 1.0//EN')
     ->add($event)
     ->get();
 ```
@@ -202,7 +202,7 @@ phase-4 mapping (omitting them would be a painful retrofit):
 1. **Core model + parser + ICS serializer** — Composite tree, typed property/param/value layers, builders, Level-1 round-trip, lenient+strict parsing. Test corpus of real-world `.ics` (Google/Apple/Outlook) to prove unknown-prop preservation. RRULE parses to a `Recurrence` VO and round-trips, but is **not** expanded.
 2. **Recurrence + timezones** — `RecurrenceExpander` (wrapping rlanvin), `occurrencesBetween($from, $to)` lazy `Generator`, VTIMEZONE, EXDATE/RDATE, `RECURRENCE-ID` overrides.
 3. **RFC 7986 remainder + iTIP (5546)** — COLOR/IMAGE/CONFERENCE; METHOD + scheduling messages.
-4. **`vanere/laravel-icalendar`** — service provider, config, `Calendar` facade, Eloquent mapping (`ProvidesCalendarEvent` contract + `InteractsWithCalendar` trait), Artisan commands, notification channel, Carbon at the boundary.
+4. **`erenav/laravel-icalendar`** — service provider, config, `Calendar` facade, Eloquent mapping (`ProvidesCalendarEvent` contract + `InteractsWithCalendar` trait), Artisan commands, notification channel, Carbon at the boundary.
 5. **Someday** — jCal/xCal serializers, Level-2 byte-fidelity.
 
 ### Phase 1 deliverable boundary

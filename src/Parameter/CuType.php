@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Parameter;
+namespace Erenav\ICalendar\Parameter;
 
 /**
  * The CUTYPE parameter (RFC 5545 §3.2.3): the type of calendar user an

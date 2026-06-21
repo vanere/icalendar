@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Parameter;
+namespace Erenav\ICalendar\Tests\Unit\Parameter;
 
+use Erenav\ICalendar\Parameter\CuType;
+use Erenav\ICalendar\Parameter\Encoding;
+use Erenav\ICalendar\Parameter\FreeBusyType;
+use Erenav\ICalendar\Parameter\ParameterValue;
+use Erenav\ICalendar\Parameter\PartStat;
+use Erenav\ICalendar\Parameter\Range;
+use Erenav\ICalendar\Parameter\Related;
+use Erenav\ICalendar\Parameter\RelationType;
+use Erenav\ICalendar\Parameter\Role;
+use Erenav\ICalendar\Parameter\ValueDataType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Parameter\CuType;
-use Vanere\ICalendar\Parameter\Encoding;
-use Vanere\ICalendar\Parameter\FreeBusyType;
-use Vanere\ICalendar\Parameter\ParameterValue;
-use Vanere\ICalendar\Parameter\PartStat;
-use Vanere\ICalendar\Parameter\Range;
-use Vanere\ICalendar\Parameter\Related;
-use Vanere\ICalendar\Parameter\RelationType;
-use Vanere\ICalendar\Parameter\Role;
-use Vanere\ICalendar\Parameter\ValueDataType;
 
 final class ParameterEnumsTest extends TestCase
 {

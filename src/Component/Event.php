@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Component;
+namespace Erenav\ICalendar\Component;
 
 use DateTimeInterface;
-use Vanere\ICalendar\Builder\EventBuilder;
-use Vanere\ICalendar\Property\Attendee;
-use Vanere\ICalendar\Property\Classification;
-use Vanere\ICalendar\Property\EventStatus;
-use Vanere\ICalendar\Property\Organizer;
-use Vanere\ICalendar\Property\Property;
-use Vanere\ICalendar\Property\Transparency;
-use Vanere\ICalendar\Recurrence\Recurrence;
-use Vanere\ICalendar\Recurrence\RecurrenceExpander;
-use Vanere\ICalendar\Recurrence\RlanvinRecurrenceExpander;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\Duration;
-use Vanere\ICalendar\ValueType\GeoValue;
-use Vanere\ICalendar\ValueType\TextValue;
+use Erenav\ICalendar\Builder\EventBuilder;
+use Erenav\ICalendar\Property\Attendee;
+use Erenav\ICalendar\Property\Classification;
+use Erenav\ICalendar\Property\EventStatus;
+use Erenav\ICalendar\Property\Organizer;
+use Erenav\ICalendar\Property\Property;
+use Erenav\ICalendar\Property\Transparency;
+use Erenav\ICalendar\Recurrence\Recurrence;
+use Erenav\ICalendar\Recurrence\RecurrenceExpander;
+use Erenav\ICalendar\Recurrence\RlanvinRecurrenceExpander;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\Duration;
+use Erenav\ICalendar\ValueType\GeoValue;
+use Erenav\ICalendar\ValueType\TextValue;
 
 /**
  * A VEVENT. Typed getters read from the underlying property bag; properties not

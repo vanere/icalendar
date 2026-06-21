@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Builder;
+namespace Erenav\ICalendar\Tests\Unit\Builder;
 
+use Erenav\ICalendar\Component\Alarm;
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Property\AlarmAction;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\Duration;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Alarm;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Property\AlarmAction;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\Duration;
 
 final class CalendarAndAlarmBuilderTest extends TestCase
 {
     public function test_calendar_defaults_version_and_adds_components(): void
     {
         $calendar = Calendar::build()
-            ->prodId('-//Vanere//ICalendar 1.0//EN')
+            ->prodId('-//Erenav//ICalendar 1.0//EN')
             ->add(Event::build()->uid('1'))
             ->add(Event::build()->uid('2')->get())
             ->get();
 
         $this->assertSame('2.0', $calendar->version());
-        $this->assertSame('-//Vanere//ICalendar 1.0//EN', $calendar->productId());
+        $this->assertSame('-//Erenav//ICalendar 1.0//EN', $calendar->productId());
         $this->assertCount(2, $calendar->events());
     }
 

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Component;
+namespace Erenav\ICalendar\Component;
 
 use DateTimeInterface;
-use Vanere\ICalendar\Builder\CalendarBuilder;
-use Vanere\ICalendar\Recurrence\Occurrence;
-use Vanere\ICalendar\Recurrence\OccurrenceExpander;
-use Vanere\ICalendar\Scheduling\Method;
-use Vanere\ICalendar\TimeZone\TimeZoneGenerator;
-use Vanere\ICalendar\ValueType\DateTimeValue;
-use Vanere\ICalendar\ValueType\TextValue;
+use Erenav\ICalendar\Builder\CalendarBuilder;
+use Erenav\ICalendar\Recurrence\Occurrence;
+use Erenav\ICalendar\Recurrence\OccurrenceExpander;
+use Erenav\ICalendar\Scheduling\Method;
+use Erenav\ICalendar\TimeZone\TimeZoneGenerator;
+use Erenav\ICalendar\ValueType\DateTimeValue;
+use Erenav\ICalendar\ValueType\TextValue;
 
 /**
  * A VCALENDAR — the top of the tree. Holds calendar-level properties (PRODID,

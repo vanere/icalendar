@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Integration;
+namespace Erenav\ICalendar\Tests\Integration;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Parser\Parser;
+use Erenav\ICalendar\Property\EventStatus;
+use Erenav\ICalendar\Recurrence\Occurrence;
+use Erenav\ICalendar\Recurrence\Recurrence;
+use Erenav\ICalendar\Serializer\IcsSerializer;
+use Erenav\ICalendar\ValueType\DateTimeValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Parser\Parser;
-use Vanere\ICalendar\Property\EventStatus;
-use Vanere\ICalendar\Recurrence\Occurrence;
-use Vanere\ICalendar\Recurrence\Recurrence;
-use Vanere\ICalendar\Serializer\IcsSerializer;
-use Vanere\ICalendar\ValueType\DateTimeValue;
 
 final class OverrideResolutionTest extends TestCase
 {

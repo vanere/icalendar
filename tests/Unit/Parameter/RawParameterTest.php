@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Unit\Parameter;
+namespace Erenav\ICalendar\Tests\Unit\Parameter;
 
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Parameter\RawParameter;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\Parameter\RawParameter;
 
 final class RawParameterTest extends TestCase
 {

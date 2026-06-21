@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Scheduling;
+namespace Erenav\ICalendar\Scheduling;
 
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Exception\SchedulingException;
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Exception\SchedulingException;
 
 /**
  * Checks a calendar against the iTIP (RFC 5546) constraints for its METHOD —

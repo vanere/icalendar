@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Recurrence;
+namespace Erenav\ICalendar\Recurrence;
 
 /**
  * The FREQ part of an RRULE (RFC 5545 §3.3.10) — how often a rule repeats.

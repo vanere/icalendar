@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Vanere\ICalendar\Tests\Integration;
+namespace Erenav\ICalendar\Tests\Integration;
 
 use DateTimeImmutable;
+use Erenav\ICalendar\Component\Calendar;
+use Erenav\ICalendar\Component\Event;
+use Erenav\ICalendar\Component\Observance;
+use Erenav\ICalendar\Component\TimeZone;
+use Erenav\ICalendar\Exception\InvalidValueException;
+use Erenav\ICalendar\Parser\Parser;
+use Erenav\ICalendar\Serializer\IcsSerializer;
+use Erenav\ICalendar\TimeZone\TimeZoneGenerator;
+use Erenav\ICalendar\ValueType\DateTimeValue;
 use PHPUnit\Framework\TestCase;
-use Vanere\ICalendar\Component\Calendar;
-use Vanere\ICalendar\Component\Event;
-use Vanere\ICalendar\Component\Observance;
-use Vanere\ICalendar\Component\TimeZone;
-use Vanere\ICalendar\Exception\InvalidValueException;
-use Vanere\ICalendar\Parser\Parser;
-use Vanere\ICalendar\Serializer\IcsSerializer;
-use Vanere\ICalendar\TimeZone\TimeZoneGenerator;
-use Vanere\ICalendar\ValueType\DateTimeValue;
 
 final class TimeZoneTest extends TestCase
 {
